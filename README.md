@@ -1,7 +1,7 @@
 # Varahenkilöpalvelu muusikoille
 
 
-Sovellus on tarkoitettu muusikoille jotka etsivät yksittäisille keikoille soittajia/tuuraajia esiintymään tai keikkoja soittaakseen. Sovelluksessa käyttäjä voi rekisteröidä yhtyeensä (ja määritellä tarve eri instrumenttien soittajille) ja yhtyeelle keikkoja, johon eri käyttäjät voivat ilmoittautua tuuraamaan. Käyttäjä voi rekisteröityä palveluun myös rekisteröimättä mitään yhtyettä, valita hallitsemansa instrumentit ja etsiä keikkoja soitettavaksi.
+Sovellus on tarkoitettu muusikoille jotka etsivät yksittäisille keikoille soittajia/tuuraajia esiintymään tai keikkoja soittaakseen. Sovelluksessa käyttäjä voi rekisteröidä yhtyeensä (ja määritellä tarpeen eri instrumenttien soittajille) ja yhtyeelle keikkoja, johon eri käyttäjät voivat ilmoittautua tuuraamaan. Käyttäjä voi rekisteröityä palveluun myös rekisteröimättä mitään yhtyettä, valita hallitsemansa instrumentit ja etsiä keikkoja soitettavaksi.
   
 ##### Ominaisuudet:
 
