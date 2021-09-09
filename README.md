@@ -6,15 +6,17 @@ Sovellus on tarkoitettu muusikoille jotka etsivät yksittäisille keikoille soit
 ##### Ominaisuudet:
 
 - Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen
-- Käyttäjä valitsee tunnuksen luomisen yhteydessä hallitsemansa instrumenttinsa ja halutessaan rekisteröidä yhtyeensä tai yhtyeitänsä
+- Käyttäjä valitsee tunnuksen luomisen yhteydessä hallitsemansa instrumenttinsa
 - Käyttäjä näkee etusivulla listan keikoista (sisältää yhtyeen nimen, keikan päivämäärän, sijainnin, kuvauksen ja eri soittajien tarpeen)
 - Käyttäjä voi lisätä itselleen yhtyeen ja ilmoittaa yhtyeelleen keikkoja johon tarvitaan soittajia
-- Käyttäjä voi ilmoittautua keikalle tuuraajaksi, jos kyseinen keikka tarvitsee käyttäjän tarjoamaa osaamista
-- Käyttäjä voi lisätä itsensä jonoon tuuraajaksi, jos kyseinen paikka on jo täytetty
+- Käyttäjä voi ilmoittautua keikalle tuuraajaksi jos kyseinen keikka tarvitsee käyttäjän tarjoamaa osaamista
+- Käyttäjä voi lisätä itsensä jonoon tuuraajaksi jos kyseinen paikka on jo täytetty
 - Ylläpitäjä pystyy poistamaan keikkoja ja käyttäjiä
 
 
-### Alustava relaatiokaavio
+## Alustava relaatiokaavio
+
+
 
 ![schema](https://github.com/Faktatykki/musician-reserve-service/blob/main/documentation/spareperson_schema.png)
 
