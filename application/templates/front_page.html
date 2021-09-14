@@ -1,0 +1,8 @@
+<div>
+    {% if session.username %}
+    <p>Tervetuloa {{ session.username }}</p>
+    <a href = "/logout">Kirjaudu ulos</a>
+    {% else %}
+    <p>Mitä sinä täällä teet?</p>
+    {% endif %}
+</div>
