@@ -1,0 +1,20 @@
+<div>
+    {% if session.username %}
+    <a href = "/front-page">Takaisin</a>
+
+        <h2>Omat yhtyeet</h2>
+        {% if band_count|int() == 0|int() %}
+        <p>Ei vielä yhtään omaa yhtyettä.. 
+            <a href = "/create-band">Luo ensimmäinen yhtyeesi!</a>
+        </p>
+        {% else %}
+            <p>
+                {% for band in bands %}
+                <p>{{ band.band_name }}</p>
+                {% endfor %}
+            </p>
+                <a href = "/create-band">Luo uusi yhtye</a>
+        {% endif %} 
+        
+    {% endif %}  
+</div>

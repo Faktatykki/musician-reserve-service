@@ -1,0 +1,20 @@
+<div>
+    <a href = "/announce-gig">Takaisin</a>
+    
+    <h1>Ilmoita {{band}}-keikka</h1>
+    <form name = "create_gig_form" action = "/announce-gig/{{band}}" method = "POST">
+        <p>
+        Päivämäärä: <input name = "gig_date" type = "date" format = "dd/mm/yyyy" placeholder="DD-MM-YYYY">
+        </p>
+        <p>
+        Kaupunki: <input name = "city" type = "text">
+        </p>
+        <p>
+        Tapahtumapaikka: <input name = "venue" type = "text">
+        </p>
+        Kuvaus: <input name = "description" type = "text">
+        <p>
+        <input type = "submit" value = "ilmoita keikka!">
+        </p>
+    </form> 
+</div>

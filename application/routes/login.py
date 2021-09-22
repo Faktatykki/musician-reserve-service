@@ -15,7 +15,7 @@ app.secret_key = getenv("SECRET_KEY")
 def login_front():
 
     if session.get("username") is not None:
-        return redirect("/frontpage")
+        return redirect("/front-page")
 
     return render_template("login.html")
 
@@ -35,7 +35,7 @@ def login_post():
         hash_value = user.hashed_password
         if check_password_hash(hash_value, password):
             session["username"] = username
-            return redirect("/frontpage")
+            return redirect("/front-page")
     
     return redirect("/login")
 

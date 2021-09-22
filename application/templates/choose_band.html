@@ -1,0 +1,21 @@
+<div>
+    <a href = "/front-page">Takaisin</a>
+    <h2>Ilmoita keikka</h2>
+    {% if band_count|int() != 0|int() %}
+        <form name = "choose_band" action = "{{url_for('announce_gig', band='selected_band')}}" method = "GET">
+            <label for = "band_selector">Valitse yhtye:</label>
+                            <select name = "selected_band">
+                                {% for band in bands %}
+                                <option value = "{{ band }}" SELECTED>{{band}}</option>
+                                {% endfor %}
+                            </select>
+            <p>
+                <input type = "submit" value = "Valitse yhtye">
+            </p>
+        </form>
+    {% else %}
+    <p>Ei vielä yhtään omaa yhtyettä.. 
+        <a href = "/create-band">Luo ensimmäinen yhtyeesi!</a>
+    </p>
+    {% endif %}                   
+</div>

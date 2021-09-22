@@ -1,0 +1,25 @@
+<div>
+    <a href = "/front-page">Takaisin</a>
+    <h2>Omat ilmoitetut keikat</h2>
+    {% if gigs_count|int() == 0|int() %}
+        <p>
+            Ei vielä yhtään ilmoitettua keikkaa.. <br>
+            <a href = "/announce-gig">Mee ilmottaa!</a>
+        </p>
+    {% else %}    
+        <div name = "own_gigs">
+            <p>
+                {% for gig in gigs %}
+                <p>
+                    <p><b><u>{{ gig.band_name}}</u></b></p><br>
+                    <b>Päivämäärä:</b> {{ gig.gig_date }}<br>
+                    <b>Kaupunki:</b> {{ gig.city }}<br>
+                    <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
+                    <b>Kuvaus:</b> {{ gig.gig_description }}<br>
+                </p>
+                {% endfor %}
+            </p>
+        </div>
+    {% endif %}
+    
+</div>

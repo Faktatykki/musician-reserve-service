@@ -1,8 +1,58 @@
 <div>
-    {% if session.username %}
-    <p>Tervetuloa {{ session.username }}</p>
-    <a href = "/logout">Kirjaudu ulos</a>
+    <div name = "session_control">
+        {% if session.username %}
+        <a href = "/logout">Kirjaudu ulos</a>
+        <p>Olet kirjautunut nimellä {{ session.username }}</p>
+    </div> 
+    
+    <div name = "user_menu">
+        <a href = "/manage-bands">Hallitse omia yhtyeitä</a><br>
+        <a href = "/announce-gig">Ilmoita keikka</a><br>
+        <a href = "/own-gigs">Omat ilmoitetut keikat</a><br>
+    </div>
+    <!-- tästä vois ehkä tehdä jonkun fragmentin -->
+    <div name = "all_gigs">
+        {% if gigs_count|int() == 0|int() %}
+            <p>
+                Ei vielä yhtään ilmoitettua keikkaa.. <br>
+            </p>
+        {% else %}    
+            <div name = "own_gigs">
+                {% for gig, players in gigs.items() %}
+                <div>
+                    <p>
+                        <p><b><u>{{ gig.band_name }}</u></b></p><br>
+                        <b>Päivämäärä:</b> {{ gig.gig_date }}<br>
+                        <b>Kaupunki:</b> {{ gig.city }}<br>
+                        <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
+                        <b>Kuvaus:</b> {{ gig.gig_description }}<br>
+                        <div name = "players">
+                            <ul>
+                                {% for player in players %}
+                                    <li>{{player}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </p>
+                    <form name = "select_instrument" action = "/sign-up/{{ gig.id }}" method = "POST">
+                        <label for = "role_select">
+                            <select name = "instrument_chosen">
+                                {% for instrument in instruments %}
+                                <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                        <input type = "submit" value = "Ilmoittaudu">
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <!--Tyyliin tänne?-->
+
     {% else %}
     <p>Mitä sinä täällä teet?</p>
+    <a href = "/login">Takaisin</a>
     {% endif %}
 </div>
