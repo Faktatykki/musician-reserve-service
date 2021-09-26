@@ -9,7 +9,6 @@ from utilities.db import db
 import routes.create_user
 import routes.front_page
 
-app.secret_key = getenv("SECRET_KEY")
 
 @app.route("/login")
 def login_front():

@@ -34,7 +34,8 @@ CREATE TABLE gigsInstruments (
 CREATE TABLE usersGigs (
     gig_id INTEGER REFERENCES gigs ON DELETE CASCADE,
     user_id INTEGER REFERENCES users ON DELETE CASCADE,
-    own_gig BOOLEAN
+    own_gig BOOLEAN,
+    UNIQUE(gig_id, user_id)
 );
 
 CREATE TABLE bandsInstruments (
