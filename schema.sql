@@ -1,3 +1,7 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO public;
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
@@ -28,7 +32,8 @@ CREATE TABLE instruments (
 CREATE TABLE gigsInstruments (
     gig_id INTEGER REFERENCES gigs ON DELETE CASCADE,
     instrument_id INTEGER REFERENCES instruments ON DELETE CASCADE,
-    user_id INTEGER REFERENCES users ON DELETE CASCADE
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
+    UNIQUE(gig_id, user_id)
 );
 
 CREATE TABLE usersGigs (
@@ -45,7 +50,8 @@ CREATE TABLE bandsInstruments (
 
 CREATE TABLE usersBands (
     band_id INTEGER REFERENCES bands ON DELETE CASCADE,
-    user_id INTEGER REFERENCES users ON DELETE CASCADE
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
+    UNIQUE(band_id, user_id)
 );
 
 -- CREATE TABLE gigsNeededRoles (

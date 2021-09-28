@@ -3,7 +3,7 @@ from flask.helpers import url_for
 from app import app
 
 from utilities.db import db
-import routes.manage_bands
+import bands.manage_bands
 
 @app.route("/create-band")
 def create_band():

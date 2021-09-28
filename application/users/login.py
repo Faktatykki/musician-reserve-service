@@ -6,13 +6,12 @@ from app import app
 from os import getenv
 from utilities.db import db
 
-import routes.create_user
-import routes.front_page
+import users.create_user
+import main_page.main_page
 
 
 @app.route("/login")
 def login_front():
-
     if session.get("username") is not None:
         return redirect("/front-page")
 

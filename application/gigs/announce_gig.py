@@ -34,8 +34,15 @@ def announce_gig(band):
     sql = "SELECT * FROM bands WHERE band_name = :band_name"
     result = db.session.execute(sql, {"band_name":band_name})
     band = result.fetchone()
+    band_id = band.id
 
-    return render_template("announce_gig.html", band = band_name)
+    #etitään kaikki bändin instrumentit
+    sql = "SELECT instrument_name FROM instruments, bandsInstruments WHERE bandsInstruments.band_id = :band_id \
+               AND instruments.id = bandsInstruments.instrument_id"
+    result = db.session.execute(sql, {"band_id":band_id})
+    instruments = result.fetchall()
+
+    return render_template("announce_gig.html", band = band_name, instruments = instruments)
 
 @app.route("/announce-gig/<band>", methods = ["POST"])
 def announce_gig_post(band):
@@ -47,6 +54,13 @@ def announce_gig_post(band):
     city = request.form["city"]
     venue = request.form["venue"]
     gig_description = request.form["description"]
+    instrument_name = request.form["instrument_chosen"]
+
+    #instrumentin id
+    sql = "SELECT id FROM instruments WHERE instrument_name = :instrument_name"
+    result = db.session.execute(sql, {"instrument_name":instrument_name})
+    instrument = result.fetchone()
+    instrument_id = instrument.id
 
     #id haetaan session-nimen perusteella
     sql = "SELECT id, hashed_password FROM users WHERE username=:session_name"
@@ -72,6 +86,12 @@ def announce_gig_post(band):
     #tekijälle suoraan keikka tauluun
     sql = "INSERT INTO usersgigs (gig_id, user_id, own_gig) VALUES (:gig_id, :user_id, 'TRUE')"
     db.session.execute(sql, {"gig_id":gig_id, "user_id":user_id, "band_id":band_id})
+    db.session.commit()
+
+    #keikan instrumentteihin suoraan myös
+    sql = "INSERT INTO gigsInstruments (gig_id, instrument_id, user_id) \
+           VALUES (:gig_id, :instrument_id, :user_id)"
+    db.session.execute(sql, {"gig_id":gig_id, "instrument_id":instrument_id, "user_id":user_id})
     db.session.commit()
 
     return redirect("/announce-gig")

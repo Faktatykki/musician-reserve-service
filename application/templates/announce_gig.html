@@ -14,7 +14,18 @@
         </p>
         Kuvaus: <input name = "description" type = "text">
         <p>
-        <input type = "submit" value = "ilmoita keikka!">
+        Valitse oma roolisi:
+        <label for = "role_select">
+            <select name = "instrument_chosen">
+                {% for instruments in instruments %}
+                    {% for instrument in instruments %}
+                        <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+        <p>
+            <input type = "submit" value = "ilmoita keikka!">
+        </p>
         </p>
     </form> 
 </div>

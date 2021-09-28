@@ -37,8 +37,12 @@
                     <form name = "select_instrument" action = "/sign-up/{{ gig.id }}" method = "POST">
                         <label for = "role_select">
                             <select name = "instrument_chosen">
-                                {% for instrument in instruments %}
-                                <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
+                                {% for show, instruments in instruments.items() %}
+                                    {% if show == gig %}
+                                        {% for instrument in instruments %}
+                                        <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
+                                        {% endfor %}
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </label>

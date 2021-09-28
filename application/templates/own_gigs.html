@@ -9,13 +9,20 @@
     {% else %}    
         <div name = "own_gigs">
             <p>
-                {% for gig in gigs %}
+                {% for gig, players in gigs.items() %}
                 <p>
                     <p><b><u>{{ gig.band_name}}</u></b></p><br>
                     <b>Päivämäärä:</b> {{ gig.gig_date }}<br>
                     <b>Kaupunki:</b> {{ gig.city }}<br>
                     <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
                     <b>Kuvaus:</b> {{ gig.gig_description }}<br>
+                    <div name = "players">
+                        <ul>
+                            {% for player in players %}
+                                <li>{{player}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </p>
                 {% endfor %}
             </p>
