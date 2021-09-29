@@ -7,6 +7,7 @@ from utilities.db import db
 import users.models
 import instruments.models
 import bands.models
+import gigs.models
 
 @app.route("/create-band")
 def create_band():
@@ -46,6 +47,5 @@ def manage_bands():
     user_id = user.id
 
     band_results = bands.models.get_own_bands(user_id)
-    print(band_results)
     
     return render_template("manage_bands.html", user = user, bands = band_results, band_count = len(band_results), id = user_id)

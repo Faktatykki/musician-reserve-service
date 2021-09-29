@@ -12,7 +12,7 @@ from utilities.db import db
 @app.route("/announce-gig")
 def announce_gig_menu(): 
     user = users.models.get_user(users.models.get_session())
-    bands_result = bands.models.get_own_bands(user.id)
+    bands_result = gigs.models.trim_results(bands.models.get_own_bands(user.id))
 
     return render_template("choose_band.html", user = user, bands = bands_result, band_count = len(bands_result))
 
