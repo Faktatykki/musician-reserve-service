@@ -5,7 +5,7 @@ from os import getenv
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
 
-import users.login
+import users.views
 
 @app.route("/")
 def redirect_to_login():

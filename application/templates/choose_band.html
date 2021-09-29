@@ -1,5 +1,5 @@
 <div>
-    <a href = "/front-page">Takaisin</a>
+    <a href = "/main-page">Takaisin</a>
     <h2>Ilmoita keikka</h2>
     {% if band_count|int() != 0|int() %}
         <form name = "choose_band" action = "{{url_for('announce_gig', band='selected_band')}}" method = "GET">

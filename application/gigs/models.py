@@ -1,0 +1,183 @@
+from flask import Flask, redirect, request, render_template, session
+from werkzeug.security import check_password_hash, generate_password_hash
+from app import app
+
+import re
+import users.models
+import bands.models
+import instruments.models
+
+from utilities.db import db
+
+def get_gigs_and_players(own_gigs):
+    user_id = users.models.get_user(users.models.get_session()).id
+
+    gigs_users_dict = {}
+    gigs_instruments_dict = {}
+
+    if own_gigs:
+        gigs = get_own_gigs(user_id)
+    else:
+        gigs = get_not_own_gigs(user_id)
+
+
+    for i in range(len(gigs)):
+        gigs_users_dict[gigs[i]] = []
+        gigs_instruments_dict[gigs[i]] = []
+
+    for i in range(len(gigs)):
+        gig_id = gigs[i].id
+        band_id = gigs[i].band_id
+        
+        players = get_gigs_players(gig_id)
+        instruments = get_bands_instruments(band_id)
+
+        gigs_users_dict[gigs[i]] = trim_results(players)
+        gigs_instruments_dict[gigs[i]] = trim_results(instruments)
+        
+    return {"users": gigs_users_dict, "instruments": gigs_instruments_dict}
+
+def sign_up_for_gig(instrument_name, gig_id):
+    user_id = users.models.get_user(users.models.get_session()).id
+    instrument = get_instrument_by_name(instrument_name)
+    instrument_id = int(str(instrument).strip("(,')"))
+
+    insert_instrument_to_gig(gig_id, instrument_id, user_id)
+    insert_user_to_gig(gig_id, user_id)
+
+def announce_gig(gig_date, city, venue, gig_description, instrument_name, band_name):
+    user_id = users.models.get_user(users.models.get_session()).id
+    instrument_id = instruments.models.get_instrument(instrument_name).id
+    band_id = bands.models.get_band(band_name).id
+
+    insert_into_gigs(gig_date, city, venue, gig_description, band_name)
+
+    gig_id = get_gig(gig_date, city, venue, gig_description, band_id).id
+
+    insert_user_to_own_gig(gig_id, user_id)
+    insert_instrument_to_gig(gig_id, instrument_id, user_id)
+
+def insert_into_gigs(gig_date, city, venue, gig_description, band_name):
+    try:
+        sql = "INSERT INTO gigs (gig_date, city, venue, gig_description, band_id) VALUES (:gig_date, :city, :venue, :gig_description, (SELECT id FROM bands WHERE band_name = :band_name))"
+        db.session.execute(sql, {"gig_date":gig_date, "city":city, "venue":venue, "gig_description":gig_description, "band_name":band_name})
+        db.session.commit()
+    except Exception as e:
+        print(e)
+
+def get_gig(gig_date, city, venue, gig_description, band_id):
+    gig = None
+    try:
+        sql = "SELECT * FROM gigs WHERE gig_date = :gig_date AND city = :city AND venue = :venue AND gig_description = :gig_description AND band_id = :band_id"
+        result = db.session.execute(sql, {"gig_date":gig_date, "city":city, "venue":venue, "gig_description":gig_description, "band_id":band_id})
+        gig = result.fetchone()
+    except Exception as e:
+        print(e)
+
+    return gig
+
+
+def get_not_own_gigs(user_id):
+    gigs = None
+
+    try:
+        sql = "SELECT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
+            bands WHERE bands.id = gigs.band_id AND usersgigs.user_id != :id AND gigs.id = usersgigs.gig_id AND \
+            own_gig = 'TRUE' ORDER BY gig_date"
+        result = db.session.execute(sql, {"id":user_id})
+        gigs = result.fetchall()
+    except Exception as e:
+        print(e)
+        
+    return gigs
+
+def get_own_gigs(user_id):
+    gigs = None
+    
+    try:
+        sql = "SELECT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
+        bands WHERE bands.id = gigs.band_id AND usersgigs.user_id = :id AND gigs.id = usersgigs.gig_id AND \
+        own_gig = 'TRUE' ORDER BY gig_date"
+        result = db.session.execute(sql, {"id":user_id})
+        gigs = result.fetchall()
+    except Exception as e:
+        print(e)
+
+    return gigs
+
+
+
+def get_gigs_players(gig_id):
+    players = None
+
+    try:
+        sql = "SELECT users.username, instruments.instrument_name FROM users \
+                INNER JOIN usersGigs ON users.id = usersGigs.user_id AND usersGigs.gig_id = :gig_id \
+                INNER JOIN gigsInstruments ON gigsInstruments.gig_id = :gig_id AND gigsInstruments.user_id = users.id \
+                INNER JOIN instruments ON gigsInstruments.instrument_id = instruments.id" 
+        result = db.session.execute(sql, {"gig_id":gig_id})
+        players = result.fetchall()
+    except Exception as e:
+        print(e)
+
+    return players
+
+def get_bands_instruments(band_id):
+    instruments = None
+ 
+    try:
+        sql = "SELECT instrument_name FROM instruments, bandsInstruments WHERE bandsInstruments.band_id = :band_id \
+                AND instruments.id = bandsInstruments.instrument_id"
+        result = db.session.execute(sql, {"band_id":band_id})
+        instruments = result.fetchall()
+    except Exception as e:
+        print(e)
+
+    return instruments
+
+#tää johonkin utilities
+def trim_results(array):
+    pattern = r"[\'(,)]"
+
+    for i in range(len(array)):
+        array[i] = re.sub(pattern, '', str(array[i]))
+
+    return array
+
+def get_instrument_by_name(instrument_name):
+    instrument = None
+
+    try:
+        sql = "SELECT id FROM instruments WHERE instrument_name = :instrument_name"
+        result = db.session.execute(sql, {"instrument_name":instrument_name})
+        instrument = result.fetchone()
+    except Exception as e:
+        print(e)
+
+    return instrument
+
+def insert_instrument_to_gig(gig_id, instrument_id, user_id):
+    try:
+        sql = "INSERT INTO gigsinstruments (gig_id, instrument_id, user_id) VALUES (:gig_id, :instrument_id, :user_id)"
+        db.session.execute(sql, {"gig_id":gig_id, "instrument_id":instrument_id, "user_id":user_id})
+        db.session.commit()
+    except Exception as e:
+        print(e)
+
+def insert_user_to_own_gig(gig_id, user_id):
+    try:
+        sql = "INSERT INTO usersgigs (gig_id, user_id, own_gig) VALUES (:gig_id, :user_id, 'TRUE')"
+        db.session.execute(sql, {"gig_id":gig_id, "user_id":user_id})
+        db.session.commit()
+    except Exception as e:
+        print("HALOOOOOOOOOOOOOOOOO")
+        print(e)
+
+def insert_user_to_gig(gig_id, user_id):
+    try:
+        sql = "INSERT INTO usersgigs (gig_id, user_id, own_gig) VALUES (:gig_id, :user_id, 'FALSE')"
+        db.session.execute(sql, {"gig_id":gig_id, "user_id":user_id})
+        db.session.commit()
+    except Exception as e:
+        print(e)
+
