@@ -16,7 +16,7 @@ def get_own_bands(id):
     except Exception as e:
         print(e)
 
-    return bands
+    return gigs.models.trim_results(bands)
 
 def get_band(band_name):
     band = None
