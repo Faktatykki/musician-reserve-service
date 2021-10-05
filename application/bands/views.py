@@ -20,7 +20,6 @@ def create_band():
 def create_band_new():
     band_name = request.form["band_name"]
     band_description = request.form["description"]
-    own_role = request.form["own_instrument"]
 
     #roolit pois noista 1_instrument jne.
     roles = []
@@ -29,7 +28,6 @@ def create_band_new():
         roles.append(str(i) + "_instrument")
 
     instrument_roles = []
-    instrument_roles.append(own_role)
 
     for i in range(8):
         role = request.form[roles[i]]

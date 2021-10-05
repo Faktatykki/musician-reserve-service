@@ -44,13 +44,16 @@ def get_bands_instruments(band_id):
     return instruments
 
 def create_band(band_name, band_description, instrument_roles):
-    user_id = users.models.get_user(users.models.get_session()).id
-    insert_band(band_name, band_description, user_id)
+    try:
+        user_id = users.models.get_user(users.models.get_session()).id
+        insert_band(band_name, band_description, user_id)
 
-    band_id = int(str(get_band(band_name)).strip("(',)"))
-    insert_user_band(band_id, user_id)
+        band_id = int(str(get_band(band_name)).strip("(',)"))
+        insert_user_band(band_id, user_id)
 
-    instruments.models.insert_into_band_instruments(instrument_roles, band_id)
+        instruments.models.insert_into_band_instruments(instrument_roles, band_id)
+    except Exception as e:
+        print(e)
 
 
 def insert_band(band_name, band_description, user_id):
@@ -77,11 +80,10 @@ def insert_user_band(band_id, user_id):
         db.session.execute(sql, {"band_id":band_id, "user_id":user_id})
         db.session.commit()
     except Exception as e:
+        print("HALOOOOOO MENNÄÄNKÖ INSERT USER BANDIIN")
         print(e)
 
 def delete_band(band_name):
-    print("TÄÄ ON SE NIMI")
-    print(band_name)
     try:
         sql = "DELETE FROM bands WHERE band_name = :band_name"
         db.session.execute(sql, {"band_name":band_name})

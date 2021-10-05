@@ -10,11 +10,11 @@
         {% else %}
             <p>
                 {% for band in bands %}
-                <p>{{ band.band_name }} 
-                    <form action = "/delete-band/{{ band.band_name }}" method = "POST">
+                <form action = "/delete-band/{{ band.band_name }}" method = "POST">
+                    <p>{{ band.band_name }}    
                         <input type = "submit" value = "Poista yhtye">
-                    </form>
-                </p>
+                    </p>
+                </form>
                 {% endfor %}
             </p>
                 <a href = "/create-band">Luo uusi yhtye</a>

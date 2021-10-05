@@ -31,7 +31,7 @@ def get_gigs_and_players(own_gigs):
         players = get_gigs_players(gig_id)
         instruments = get_bands_instruments(band_id)
 
-        gigs_users_dict[gigs[i]] = trim_results(players)
+        gigs_users_dict[gigs[i]] = players
         gigs_instruments_dict[gigs[i]] = trim_results(instruments)
 
     return {"gigs": gigs, "users": gigs_users_dict, "instruments": gigs_instruments_dict}
@@ -140,7 +140,7 @@ def get_bands_instruments(band_id):
     instruments = None
  
     try:
-        sql = "SELECT instrument_name FROM instruments, bandsInstruments WHERE bandsInstruments.band_id = :band_id \
+        sql = "SELECT DISTINCT instrument_name FROM instruments, bandsInstruments WHERE bandsInstruments.band_id = :band_id \
                 AND instruments.id = bandsInstruments.instrument_id"
         result = db.session.execute(sql, {"band_id":band_id})
         instruments = result.fetchall()

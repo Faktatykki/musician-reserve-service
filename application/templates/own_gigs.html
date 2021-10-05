@@ -12,14 +12,21 @@
                 {% for gig, players in gigs.items() %}
                 <p>
                     <p><b><u>{{ gig.band_name}}</u></b></p>
-                    <b>Päivämäärä:</b> {{ gig.gig_date }}<br>
+                    <b>Päivämäärä:</b> {{ gig.gig_date.strftime('%d.%m.%Y') }}<br>
                     <b>Kaupunki:</b> {{ gig.city }}<br>
                     <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
                     <b>Kuvaus:</b> {{ gig.gig_description }}<br>
                     <div name = "players">
-                        <ul>
-                            {% for player in players %}
-                                <li>{{player}}</li>
+
+                        {% set ns = namespace(title='empty_set') %}
+                        {% for player in players %}
+                            {% if ns.title != player.instrument_name %}
+                                <h4>{{ player.instrument_name }}</h4>
+                                {% set ns.title = player.instrument_name %}
+                            {% endif %}
+                                <ul>
+                                    <li>{{ player.username }}, {{ player.instrument_name}}</li>
+                                </ul>    
                             {% endfor %}
                         </ul>
                     </div>
