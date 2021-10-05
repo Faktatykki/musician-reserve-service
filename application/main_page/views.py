@@ -24,3 +24,10 @@ def sign_up_for_gig(gig_id):
     gigs.models.sign_up_for_gig(instrument_name, gig_id)
 
     return redirect("/main-page")
+
+@app.route("/delete-sign-up/<int:gig_id>/<string:username>", methods = ["POST"])
+def delete_sign_up(gig_id, username):
+    gigs.models.delete_sign_up(gig_id, username)
+
+    return redirect("/main-page")
+

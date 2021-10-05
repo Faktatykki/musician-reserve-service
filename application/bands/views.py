@@ -16,7 +16,6 @@ def create_band():
 
     return render_template("create_band.html", user = user, id = id, instruments = instruments_result)
         
-        
 @app.route("/create-band", methods = ["POST"])
 def create_band_new():
     band_name = request.form["band_name"]
@@ -37,6 +36,13 @@ def create_band_new():
         instrument_roles.append(role)
 
     bands.models.create_band(band_name, band_description, instrument_roles)
+
+    return redirect("/manage-bands")
+
+@app.route("/delete-band/<string:band_name>", methods = ["POST"])
+def delete_band(band_name):
+    
+    bands.models.delete_band(band_name)
 
     return redirect("/manage-bands")
 

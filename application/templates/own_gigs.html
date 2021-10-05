@@ -11,7 +11,7 @@
             <p>
                 {% for gig, players in gigs.items() %}
                 <p>
-                    <p><b><u>{{ gig.band_name}}</u></b></p><br>
+                    <p><b><u>{{ gig.band_name}}</u></b></p>
                     <b>Päivämäärä:</b> {{ gig.gig_date }}<br>
                     <b>Kaupunki:</b> {{ gig.city }}<br>
                     <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
@@ -23,6 +23,9 @@
                             {% endfor %}
                         </ul>
                     </div>
+                    <form action = "/delete-gig/{{ gig.id }}" method = "POST">
+                        <input type = "submit" value = "Poista keikka">
+                    </form><br>
                 </p>
                 {% endfor %}
             </p>

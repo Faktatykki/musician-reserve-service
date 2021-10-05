@@ -29,7 +29,13 @@
                         <div name = "players">
                             <ul>
                                 {% for player in players %}
-                                    <li>{{player}}</li>
+                                    <li>{{player}} 
+                                        {% if player.startswith(session.username) %}
+                                            <form action = "/delete-sign-up/{{ gig.id }}/{{ session.username }}" method = "POST" display = "inline">
+                                                <input type = "submit" value = "Poista ilmoittautuminen">
+                                            </form>
+                                        {% endif %}
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>

@@ -79,7 +79,12 @@ def insert_user_band(band_id, user_id):
     except Exception as e:
         print(e)
 
-
-
-
-    
+def delete_band(band_name):
+    print("TÄÄ ON SE NIMI")
+    print(band_name)
+    try:
+        sql = "DELETE FROM bands WHERE band_name = :band_name"
+        db.session.execute(sql, {"band_name":band_name})
+        db.session.commit()
+    except Exception as e:
+        print(e)

@@ -49,6 +49,26 @@ def insert_into_band_instrument(instrument_id, band_id):
     except Exception as e:
         print(e)
 
+def get_instrument_by_name(instrument_name):
+    instrument = None
+
+    try:
+        sql = "SELECT id FROM instruments WHERE instrument_name = :instrument_name"
+        result = db.session.execute(sql, {"instrument_name":instrument_name})
+        instrument = result.fetchone()
+    except Exception as e:
+        print(e)
+
+    return instrument
+
+def insert_instrument_to_gig(gig_id, instrument_id, user_id):
+    try:
+        sql = "INSERT INTO gigsinstruments (gig_id, instrument_id, user_id) VALUES (:gig_id, :instrument_id, :user_id)"
+        db.session.execute(sql, {"gig_id":gig_id, "instrument_id":instrument_id, "user_id":user_id})
+        db.session.commit()
+    except Exception as e:
+        print(e)
+
 
 
     
