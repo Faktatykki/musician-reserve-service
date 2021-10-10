@@ -61,16 +61,20 @@ def delete_sign_up(gig_id, username):
     return
 
 def announce_gig(gig_date, city, venue, gig_description, instrument_name, band_name):
-    user_id = users.models.get_user(users.models.get_session()).id
-    instrument_id = instruments.models.get_instrument(instrument_name).id
-    band_id = bands.models.get_band(band_name).id
+    try:
+        user_id = users.models.get_user(users.models.get_session()).id
+        instrument_id = instruments.models.get_instrument(instrument_name).id
+        band_id = bands.models.get_band(band_name).id
 
-    insert_into_gigs(gig_date, city, venue, gig_description, band_name)
+        insert_into_gigs(gig_date, city, venue, gig_description, band_name)
 
-    gig_id = get_gig(gig_date, city, venue, gig_description, band_id).id
+        gig_id = get_gig(gig_date, city, venue, gig_description, band_id).id
 
-    insert_user_to_own_gig(gig_id, user_id)
-    instruments.models.insert_instrument_to_gig(gig_id, instrument_id, user_id)
+        insert_user_to_own_gig(gig_id, user_id)
+        instruments.models.insert_instrument_to_gig(gig_id, instrument_id, user_id)
+        return True
+    except Exception as e:
+        return False
 
 def insert_into_gigs(gig_date, city, venue, gig_description, band_name):
     try:
@@ -82,6 +86,7 @@ def insert_into_gigs(gig_date, city, venue, gig_description, band_name):
 
 def get_gig(gig_date, city, venue, gig_description, band_id):
     gig = None
+    
     try:
         sql = "SELECT * FROM gigs WHERE gig_date = :gig_date AND city = :city AND venue = :venue AND gig_description = :gig_description AND band_id = :band_id"
         result = db.session.execute(sql, {"gig_date":gig_date, "city":city, "venue":venue, "gig_description":gig_description, "band_id":band_id})

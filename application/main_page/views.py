@@ -9,12 +9,11 @@ import gigs.views
 import gigs.models
 import users.models
 
-session_name = None
-
 @app.route("/main-page")
 def front_page():
     gigs_dict = gigs.models.get_gigs_and_players(False)
-    return render_template("front_page.html", gigs = gigs_dict["users"], gigs_count = len(gigs_dict), instruments = gigs_dict["instruments"])
+    print(len(gigs_dict["gigs"]))
+    return render_template("front_page.html", gigs = gigs_dict["users"], gigs_count = len(gigs_dict["gigs"]), instruments = gigs_dict["instruments"])
 
 #tää omaan reitittimeen tai jotain?
 @app.route("/sign-up/<int:gig_id>", methods = ["POST"])

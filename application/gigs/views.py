@@ -8,6 +8,7 @@ import instruments.models
 import gigs.models
 
 from utilities.db import db
+import gigs.forms_validator
 
 @app.route("/announce-gig")
 def announce_gig_menu(): 
@@ -34,9 +35,15 @@ def announce_gig_post(band):
     gig_description = request.form["description"]
     instrument_name = request.form["instrument_chosen"]
     
-    gigs.models.announce_gig(gig_date, city, venue, gig_description, instrument_name, band)
+    message = gigs.forms_validator.validate_announce_gig(gig_date, city, venue, gig_description, instrument_name)
 
-    return redirect("/announce-gig")
+    if message is None:
+        if gigs.models.announce_gig(gig_date, city, venue, gig_description, instrument_name, band):
+            return render_template("error.html", message = "Keikka ilmoitettu!", link_back = "/own-gigs", link_name = "Omat ilmoitetut keikat")
+        else:
+            return render_template("error.html", message = "Jotain meni pieleen...", link_back = "/announce-gig", link_name = "Kokeile uudelleen")
+    else:
+        return render_template("error.html", message = message, link_back = "/announce-gig", link_name = "Kokeile uudelleen")     
 
 @app.route("/delete-gig/<int:id>", methods = ["POST"])
 def delete_gig(id):

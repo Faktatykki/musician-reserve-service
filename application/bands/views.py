@@ -7,7 +7,7 @@ from utilities.db import db
 import users.models
 import instruments.models
 import bands.models
-import gigs.models
+import bands.forms_validator
 
 @app.route("/create-band")
 def create_band():
@@ -33,9 +33,15 @@ def create_band_new():
         role = request.form[roles[i]]
         instrument_roles.append(role)
 
-    bands.models.create_band(band_name, band_description, instrument_roles)
+    message = bands.forms_validator.validate_create_band(band_name, band_description, instrument_roles)
 
-    return redirect("/manage-bands")
+    if message is None:
+        if bands.models.create_band(band_name, band_description, instrument_roles):
+            return render_template("error.html", message = "Yhtye luotu!", link_back = "/announce-gig", link_name = "Mene ilmoittamaan keikka")
+        else:
+            return render_template("error.html", message = "Jotain meni pieleen...", link_back = "/create-band", link_name = "Kokeile uudestaan")
+    else:
+        return render_template("error.html", message = message, link_back = "/create-band", link_name = "Kokeile uudelleen")
 
 @app.route("/delete-band/<string:band_name>", methods = ["POST"])
 def delete_band(band_name):

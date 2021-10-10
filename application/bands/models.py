@@ -30,6 +30,18 @@ def get_band(band_name):
 
     return band
 
+def get_band_case_insensitive(band_name):
+    bands = None
+
+    try:
+        sql = "SELECT * FROM bands WHERE band_name ILIKE :band_name"
+        result = db.session.execute(sql, {"band_name":band_name})
+        bands = result.fetchall()
+    except Exception as e:
+        print(e)
+
+    return bands
+
 def get_bands_instruments(band_id):
     instruments = None
 
@@ -52,8 +64,10 @@ def create_band(band_name, band_description, instrument_roles):
         insert_user_band(band_id, user_id)
 
         instruments.models.insert_into_band_instruments(instrument_roles, band_id)
+        return True
     except Exception as e:
         print(e)
+        return False
 
 
 def insert_band(band_name, band_description, user_id):
@@ -80,7 +94,6 @@ def insert_user_band(band_id, user_id):
         db.session.execute(sql, {"band_id":band_id, "user_id":user_id})
         db.session.commit()
     except Exception as e:
-        print("HALOOOOOO MENNÄÄNKÖ INSERT USER BANDIIN")
         print(e)
 
 def delete_band(band_name):
