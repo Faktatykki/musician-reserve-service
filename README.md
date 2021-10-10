@@ -27,16 +27,17 @@ Sovellusta voi testata Herokussa osoitteessa:
 
 Tietokannasta löytyy tällä hetkellä kaksi käyttäjää:
 
-Käyttäjänimi: Testi
-Salasana: Testaaja
-
-Käyttäjänimi: Testi2
-Salasana: Testaaja2
-
+Käyttäjänimi: Testi  
+Salasana: Testaaja  
+  
+Käyttäjänimi: Testi2  
+Salasana: Testaaja2  
+  
+  
 
 Kannattaa testata käyttäjien, yhtyeiden ja keikkojen luomista kummallisilla syötteillä (erikoismerkkejä yms.)
 
-
+  
 Rattoisia testaamisia!
 
 
