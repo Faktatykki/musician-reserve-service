@@ -4,9 +4,9 @@
     <h2>Luo uusi yhtye</h2>
 
         <div class = "error">
-            {% if message %}
-                {{ message }}
-            {% endif %}
+            {% for message in messages %}
+                {{ message }}<br>
+            {% endfor %}
         </div>
     <div>
         <form name = "create_band_form" action = "/create-band" method = "POST">

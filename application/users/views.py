@@ -50,15 +50,15 @@ def create_user():
     password = request.form["password"]
     password_again = request.form["password_again"]
 
-    message = users.forms_validator.validate_create_user(username, password, password_again)
+    messages = users.forms_validator.validate_create_user(username, password, password_again)
     
-    if message is None:
+    if len(messages) == 0:
         if users.models.create_user(username, password):
             return render_template("error.html", message = "Kaikki ok! Käyttäjä luotu!", link_back = "/login", link_name = "Kirjautumiseen")
         else:
-            return render_template("create_user.html", message = "Jotain meni pieleen..")
+            return render_template("create_user.html", messages = ["Jotain meni pieleen.."])
     else:
-        return render_template("create_user.html", message = message)
+        return render_template("create_user.html", messages = messages, messages_count = len(messages))
 
 @app.route("/logout")
 def logout():

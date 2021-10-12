@@ -4,9 +4,9 @@
     <h2>Luo uusi käyttäjätunnus</h2>
 
     <div class = "error">
-        {% if message %}
-            {{ message }}
-        {% endif %}
+        {% for message in messages %}
+            {{ message }}<br>
+        {% endfor %}
     </div>
 
     <form action = "/create-user" method = "POST">

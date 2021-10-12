@@ -8,26 +8,22 @@ import bands.models
 from utilities.db import db
 
 def validate_create_band(band_name, band_description, instrument_roles):
-    error_message = None
+    error_messages = []
     string_check = re.compile('[%?]')
 
     case_insensitive_band_query = bands.models.get_band_case_insensitive(band_name)
 
     if len(case_insensitive_band_query) > 0:
-         error_message = "Yhtye on jo olemassa"
-         return error_message
+        error_messages.append("Yhtye on jo olemassa")
          
     if len(band_name) < 1 or len(band_name) > 80:
-        error_message = "Yhtyeen nimi ei voi olla tyhjä tai yli 80 merkkiä pitkä"
-        return error_message
+        error_messages.append("Yhtyeen nimi ei voi olla tyhjä tai yli 80 merkkiä pitkä")
 
     if string_check.search(band_name) is not None:
-        error_message = "Yhtyeen nimessä ei saa esiintyä seuraavia erikoismerkkejä: %?"
-        return error_message
+        error_messages.append("Yhtyeen nimessä ei saa esiintyä seuraavia erikoismerkkejä: %?")
 
     if len(band_description) > 2000:
-        error_message = "Rauhoitu, yhtyeen kuvaus pitäisi olla alle 2000 merkkiä"
-        return error_message
+        error_messages.append("Rauhoitu, yhtyeen kuvaus pitäisi olla alle 2000 merkkiä")
 
     only_none = True
 
@@ -37,9 +33,9 @@ def validate_create_band(band_name, band_description, instrument_roles):
             only_none = False
             
     if only_none:
-        error_message = "Yhtyeessä pitäisi olla ainakin yksi rooli valittuna"
+        error_messages.append("Yhtyeessä pitäisi olla ainakin yksi rooli valittuna")
     
-    return error_message
+    return error_messages
     
 
     

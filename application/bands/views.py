@@ -39,15 +39,15 @@ def create_band_new():
         role = request.form[roles[i]]
         instrument_roles.append(role)
 
-    message = bands.forms_validator.validate_create_band(band_name, band_description, instrument_roles)
+    messages = bands.forms_validator.validate_create_band(band_name, band_description, instrument_roles)
 
-    if message is None:
+    if len(messages) == 0:
         if bands.models.create_band(band_name, band_description, instrument_roles):
             return render_template("error.html", message = "Yhtye luotu!", link_back = "/announce-gig", link_name = "Mene ilmoittamaan keikka")
         else:
-            return render_template("create_band.html", message = "Jotain meni pieleen...")
+            return render_template("create_band.html", messages = ["Jotain meni pieleen..."])
     else:
-        return render_template("create_band.html", message = message, user = user, id = id, instruments = instruments_result)
+        return render_template("create_band.html", messages = messages, user = user, id = id, instruments = instruments_result)
 
 @app.route("/delete-band/<string:band_name>", methods = ["POST"])
 def delete_band(band_name):

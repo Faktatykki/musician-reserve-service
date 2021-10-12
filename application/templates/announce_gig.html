@@ -4,9 +4,9 @@
     <h1>Ilmoita {{band}}-keikka</h1>
     
     <div class = "error">
-        {% if message %}
-            {{ message }}
-        {% endif %}
+        {% for message in messages %}
+            {{ message }}<br>
+        {% endfor %}
     </div>
 
     <form name = "create_gig_form" action = "/announce-gig/{{band}}" method = "POST">
