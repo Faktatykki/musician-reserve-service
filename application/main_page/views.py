@@ -18,6 +18,9 @@ def front_page():
 #tää omaan reitittimeen tai jotain?
 @app.route("/sign-up/<int:gig_id>", methods = ["POST"])
 def sign_up_for_gig(gig_id):
+    csrf_token = request.form["csrf_token"]
+    users.models.check_csrf_token(csrf_token)
+    
     instrument_name = request.form["instrument_chosen"]
 
     gigs.models.sign_up_for_gig(instrument_name, gig_id)
@@ -26,6 +29,9 @@ def sign_up_for_gig(gig_id):
 
 @app.route("/delete-sign-up/<int:gig_id>/<string:username>", methods = ["POST"])
 def delete_sign_up(gig_id, username):
+    csrf_token = request.form["csrf_token"]
+    users.models.check_csrf_token(csrf_token)
+
     gigs.models.delete_sign_up(gig_id, username)
 
     return redirect("/main-page")

@@ -6,11 +6,12 @@
             <label for = "band_selector">Valitse yhtye:</label>
                             <select name = "selected_band">
                                 {% for band in bands %}
-                                <option value = "{{ band }}" SELECTED>{{band}}</option>
+                                <option value = "{{ band }}" SELECTED>{{ band }}</option>
                                 {% endfor %}
                             </select>
             <p>
                 <input type = "submit" value = "Valitse yhtye">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </p>
         </form>
     {% else %}

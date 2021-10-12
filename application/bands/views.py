@@ -18,6 +18,9 @@ def create_band():
         
 @app.route("/create-band", methods = ["POST"])
 def create_band_new():
+    csrf_token = request.form["csrf_token"]
+    users.models.check_csrf_token(csrf_token)
+
     band_name = request.form["band_name"]
     band_description = request.form["description"]
 
@@ -48,6 +51,8 @@ def create_band_new():
 
 @app.route("/delete-band/<string:band_name>", methods = ["POST"])
 def delete_band(band_name):
+    csrf_token = request.form["csrf_token"]
+    users.models.check_csrf_token(csrf_token)
     
     bands.models.delete_band(band_name)
 

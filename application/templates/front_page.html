@@ -38,7 +38,8 @@
                                     <ul>
                                         <li>{{ player.username }}, {{ player.instrument_name }}
                                             {% if player.username == session.username %}
-                                                <input type = "submit" value = "Poista ilmoittautuminen">  
+                                                <input type = "submit" value = "Poista ilmoittautuminen">
+                                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">  
                                             {% endif %}
                                         </li>
                                     </ul>
@@ -59,6 +60,7 @@
                             </select>
                         </label>
                         <input type = "submit" value = "Ilmoittaudu">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </form>
                 </div>
                 {% endfor %}

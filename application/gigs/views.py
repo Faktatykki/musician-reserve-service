@@ -11,7 +11,8 @@ from utilities.db import db
 import gigs.forms_validator
 
 @app.route("/announce-gig")
-def announce_gig_menu(): 
+def announce_gig_menu():
+
     user = users.models.get_user(users.models.get_session())
     bands_result = gigs.models.trim_results(bands.models.get_own_bands(user.id))
 
@@ -29,6 +30,9 @@ def announce_gig(band):
 
 @app.route("/announce-gig/<band>", methods = ["POST"])
 def announce_gig_post(band):
+    csrf_token = request.form["csrf_token"]
+    users.models.check_csrf_token(csrf_token)
+
     gig_date = request.form["gig_date"]
     city = request.form["city"]
     venue = request.form["venue"]
@@ -50,6 +54,8 @@ def announce_gig_post(band):
 
 @app.route("/delete-gig/<int:id>", methods = ["POST"])
 def delete_gig(id):
+    csrf_token = request.form["csrf_token"]
+    users.models.check_csrf_token(csrf_token)
     
     gigs.models.delete_gig(id)
     

@@ -13,7 +13,7 @@
                 <form action = "/delete-band/{{ band.band_name }}" method = "POST">
                     <p>{{ band.band_name }}    
                         <input type = "submit" value = "Poista yhtye">
-                    </p>
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">                    </p>
                 </form>
                 {% endfor %}
             </p>

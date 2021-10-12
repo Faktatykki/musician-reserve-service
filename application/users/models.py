@@ -1,8 +1,11 @@
-from flask import Flask, redirect, request, render_template, session
+from os import abort
+from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import app
 
 from utilities.db import db
+
+import secrets
 
 def get_session():
     session_name = session.get("username")
@@ -46,6 +49,7 @@ def verify_login(user, password):
     else:
         hash_value = user.hashed_password
         if check_password_hash(hash_value, password):
+            session["csrf_token"] = secrets.token_hex(16)
             session["username"] = user.username
             return True
 
@@ -63,5 +67,9 @@ def create_user(username, password):
     except Exception as e:
         return False
 
+def check_csrf_token(csrf_token):
+    if session["csrf_token"] != csrf_token:
+        abort(403)
+        
 def log_out():
     session.clear()

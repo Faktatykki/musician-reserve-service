@@ -32,6 +32,7 @@
                     </div>
                     <form action = "/delete-gig/{{ gig.id }}" method = "POST">
                         <input type = "submit" value = "Poista keikka">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </form><br>
                 </p>
                 {% endfor %}
