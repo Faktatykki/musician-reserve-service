@@ -3,6 +3,12 @@
     
     <h2>Luo uusi käyttäjätunnus</h2>
 
+    <div class = "error">
+        {% if message %}
+            {{ message }}
+        {% endif %}
+    </div>
+
     <form action = "/create-user" method = "POST">
         <p>
             Käyttäjänimi:

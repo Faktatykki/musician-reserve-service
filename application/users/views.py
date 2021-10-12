@@ -22,7 +22,7 @@ def login_front():
     if users.models.logged_in():
         return redirect("/main-page")
 
-    return render_template("login.html")
+    return render_template("login.html", message = None)
 
 @app.route("/login", methods = ["POST"])
 def login_post():
@@ -35,14 +35,14 @@ def login_post():
     if verify_login:
         return redirect("/main-page")
     else:
-        return render_template("error.html", message = "Kirjautuminen ei onnistunut, tarkista käyttäjätunnus ja salasana", link_back = "/login", link_name = "Kokeile uudelleen") 
+        return render_template("login.html", message = "Kirjautuminen ei onnistunut, tarkista käyttäjätunnus ja salasana") 
 
 @app.route("/create-user")
 def create_user_page():
     if users.models.logged_in():
         return redirect("/main-page")
 
-    return render_template("create_user.html")
+    return render_template("create_user.html", message = None)
 
 @app.route("/create-user", methods = ["POST"])
 def create_user():
@@ -56,9 +56,9 @@ def create_user():
         if users.models.create_user(username, password):
             return render_template("error.html", message = "Kaikki ok! Käyttäjä luotu!", link_back = "/login", link_name = "Kirjautumiseen")
         else:
-            return render_template("error.html", message = "Jotain meni pieleen..", link_back = "/create-user", link_name = "Kokeile uudelleen")
+            return render_template("create_user.html", message = "Jotain meni pieleen..")
     else:
-        return render_template("error.html", message = message, link_back = "/create-user", link_name = "Kokeile uudelleen")
+        return render_template("create_user.html", message = message)
 
 @app.route("/logout")
 def logout():

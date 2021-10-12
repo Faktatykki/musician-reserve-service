@@ -14,12 +14,15 @@ def create_band():
     user = users.models.get_user(users.models.get_session())
     instruments_result = instruments.models.get_all_instruments()
 
-    return render_template("create_band.html", user = user, id = id, instruments = instruments_result)
+    return render_template("create_band.html", message = None, user = user, id = id, instruments = instruments_result)
         
 @app.route("/create-band", methods = ["POST"])
 def create_band_new():
     band_name = request.form["band_name"]
     band_description = request.form["description"]
+
+    user = users.models.get_user(users.models.get_session())
+    instruments_result = instruments.models.get_all_instruments()
 
     #roolit pois noista 1_instrument jne.
     roles = []
@@ -39,9 +42,9 @@ def create_band_new():
         if bands.models.create_band(band_name, band_description, instrument_roles):
             return render_template("error.html", message = "Yhtye luotu!", link_back = "/announce-gig", link_name = "Mene ilmoittamaan keikka")
         else:
-            return render_template("error.html", message = "Jotain meni pieleen...", link_back = "/create-band", link_name = "Kokeile uudestaan")
+            return render_template("create_band.html", message = "Jotain meni pieleen...")
     else:
-        return render_template("error.html", message = message, link_back = "/create-band", link_name = "Kokeile uudelleen")
+        return render_template("create_band.html", message = message, user = user, id = id, instruments = instruments_result)
 
 @app.route("/delete-band/<string:band_name>", methods = ["POST"])
 def delete_band(band_name):

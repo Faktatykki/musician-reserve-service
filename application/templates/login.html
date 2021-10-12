@@ -2,6 +2,12 @@
     <div>
         <h1>Ootko valmiina rokkaamaan?</h1>
 
+        <div class = "error">
+            {% if message %}
+                {{ message }}
+            {% endif %}
+        </div>
+
         <h3>Kirjaudu sisään</h3>
 
         <form action = "/login" method = "POST">

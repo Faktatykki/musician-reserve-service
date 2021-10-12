@@ -2,6 +2,13 @@
     <a href = "/announce-gig">Takaisin</a>
     
     <h1>Ilmoita {{band}}-keikka</h1>
+    
+    <div class = "error">
+        {% if message %}
+            {{ message }}
+        {% endif %}
+    </div>
+
     <form name = "create_gig_form" action = "/announce-gig/{{band}}" method = "POST">
         <p>
         Päivämäärä: <input name = "gig_date" type = "date" format = "dd/mm/yyyy" placeholder="DD-MM-YYYY">

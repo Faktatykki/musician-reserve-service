@@ -25,7 +25,7 @@ def announce_gig(band):
     band_id = bands.models.get_band(band_name).id
     instruments = bands.models.get_bands_instruments(band_id)
 
-    return render_template("announce_gig.html", band = band_name, instruments = instruments)
+    return render_template("announce_gig.html", message = None, band = band_name, instruments = instruments)
 
 @app.route("/announce-gig/<band>", methods = ["POST"])
 def announce_gig_post(band):
@@ -35,15 +35,18 @@ def announce_gig_post(band):
     gig_description = request.form["description"]
     instrument_name = request.form["instrument_chosen"]
     
+    band_id = bands.models.get_band(band).id
+
     message = gigs.forms_validator.validate_announce_gig(gig_date, city, venue, gig_description, instrument_name)
+    instruments = bands.models.get_bands_instruments(band_id)
 
     if message is None:
         if gigs.models.announce_gig(gig_date, city, venue, gig_description, instrument_name, band):
             return render_template("error.html", message = "Keikka ilmoitettu!", link_back = "/own-gigs", link_name = "Omat ilmoitetut keikat")
         else:
-            return render_template("error.html", message = "Jotain meni pieleen...", link_back = "/announce-gig", link_name = "Kokeile uudelleen")
+            return render_template("announce.gig.html", message = "Jotain meni pieleen...")
     else:
-        return render_template("error.html", message = message, link_back = "/announce-gig", link_name = "Kokeile uudelleen")     
+        return render_template("announce_gig.html", message = message, band = band, instruments = instruments)     
 
 @app.route("/delete-gig/<int:id>", methods = ["POST"])
 def delete_gig(id):
