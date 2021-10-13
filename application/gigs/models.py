@@ -15,11 +15,15 @@ def get_gigs_and_players(own_gigs):
     gigs_users_dict = {}
     gigs_instruments_dict = {}
 
+    print(own_gigs)
+
     if own_gigs:
         gigs = get_own_gigs(user_id)
-    else:
+    elif own_gigs == None:
+        gigs = get_signed_up_gigs(user_id)
+    elif not own_gigs:
         gigs = get_not_own_gigs(user_id)
-
+    
     for i in range(len(gigs)):
         gigs_users_dict[gigs[i]] = []
         gigs_instruments_dict[gigs[i]] = []
@@ -112,6 +116,7 @@ def get_not_own_gigs(user_id):
     return gigs
 
 def get_own_gigs(user_id):
+
     gigs = None
     
     try:
@@ -125,6 +130,19 @@ def get_own_gigs(user_id):
 
     return gigs
 
+def get_signed_up_gigs(user_id):
+    gigs = None
+
+    try:
+        sql = "SELECT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
+            bands WHERE bands.id = gigs.band_id AND usersgigs.user_id = :id AND gigs.id = usersgigs.gig_id AND \
+            own_gig = 'FALSE' ORDER BY gig_date"
+        result = db.session.execute(sql, {"id":user_id})
+        gigs = result.fetchall()
+    except Exception as e:
+        print(e)
+
+    return gigs
 
 def get_gigs_players(gig_id):
     players = None

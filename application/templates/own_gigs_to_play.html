@@ -12,12 +12,13 @@
         </nav>
     </div>
 
-    <h2>Keikkailmoitukset</h2>
+    <h2>Keikat joille olet ilmoittautunut</h2>
     <!-- tästä vois ehkä tehdä jonkun fragmentin -->
     <div name = "all_gigs">
         {% if gigs_count|int() == 0|int() %}
             <p>
-                Ei vielä yhtään ilmoitettua keikkaa.. <br>
+                Et ole ilmoittautunut tuuraamaan vielä yhdellekkään keikalle...<br>
+                <a href = "/main-page">Mene selaamaan!</a>
             </p>
         {% else %}    
             <div name = "own_gigs">
@@ -49,25 +50,7 @@
                                 {% endfor %}
                         </div>
                     </p>
-                    <form name = "select_instrument" action = "/sign-up/{{ gig.id }}" method = "POST">
-                        <label for = "role_select">
-                            <select name = "instrument_chosen">
-                                {% for show, instruments in instruments.items() %}
-                                    {% if show == gig %}
-                                        {% for instrument in instruments %}
-                                        <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </label>
-                        <input type = "submit" value = "Ilmoittaudu">
-                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                    </form>
-                </div>
+                <div>
                 {% endfor %}
-            </div>
         {% endif %}
-    </div>
-    <!--Tyyliin tänne?-->
 </div>

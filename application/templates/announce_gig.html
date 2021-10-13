@@ -1,5 +1,16 @@
 <div>
-    <a href = "/announce-gig">Takaisin</a>
+    <div class = "nav">
+        <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
+        <nav>
+            <a href = "/main-page">Selaa keikkoja</a>
+            <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
+            <a href = "/create-band">Luo yhtye</a>
+            <a href = "/own-gigs">Omat ilmoitetut keikat</a>
+            <a href = "/own-gigs-to-play">Keikat mihin olet ilmoittautunut</a>
+            <a href = "/announce-gig">Ilmoita keikka</a>
+            <a href = "/logout">Kirjaudu ulos</a>
+        </nav>
+    </div>
     
     <h1>Ilmoita {{band}}-keikka</h1>
     

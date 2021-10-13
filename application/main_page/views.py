@@ -12,7 +12,6 @@ import users.models
 @app.route("/main-page")
 def front_page():
     gigs_dict = gigs.models.get_gigs_and_players(False)
-    print(len(gigs_dict["gigs"]))
     return render_template("front_page.html", gigs = gigs_dict["users"], gigs_count = len(gigs_dict["gigs"]), instruments = gigs_dict["instruments"])
 
 #tää omaan reitittimeen tai jotain?
@@ -34,5 +33,5 @@ def delete_sign_up(gig_id, username):
 
     gigs.models.delete_sign_up(gig_id, username)
 
-    return redirect("/main-page")
+    return redirect(request.referrer)
 

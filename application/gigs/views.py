@@ -65,3 +65,9 @@ def delete_gig(id):
 def own_gigs(): 
     gigs_dict = gigs.models.get_gigs_and_players(True)
     return render_template("own_gigs.html", gigs = gigs_dict["users"], gigs_count = len(gigs_dict["gigs"]), instruments = gigs_dict["instruments"])
+
+@app.route("/own-gigs-to-play")
+def own_gigs_to_play():
+    gigs_dict = gigs.models.get_gigs_and_players(None)
+    return render_template("own_gigs_to_play.html", gigs = gigs_dict["users"], gigs_count = len(gigs_dict["gigs"]), instruments = gigs_dict["instruments"])
+
