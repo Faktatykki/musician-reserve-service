@@ -1,73 +1,79 @@
-<div>
-    <div class = "nav">
-        <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
-        <nav>
-            <a href = "/main-page">Selaa keikkoja</a>
-            <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
-            <a href = "/create-band">Luo yhtye</a>
-            <a href = "/own-gigs">Omat ilmoitetut keikat</a>
-            <a href = "/own-gigs-to-play">Keikat mihin olet ilmoittautunut</a>
-            <a href = "/announce-gig">Ilmoita keikka</a>
-            <a href = "/logout">Kirjaudu ulos</a>
-        </nav>
-    </div>
 
-    <h2>Keikkailmoitukset</h2>
-    <!-- tästä vois ehkä tehdä jonkun fragmentin -->
-    <div name = "all_gigs">
-        {% if gigs_count|int() == 0|int() %}
-            <p>
-                Ei vielä yhtään ilmoitettua keikkaa.. <br>
-            </p>
-        {% else %}    
-            <div name = "own_gigs">
-                {% for gig, players in gigs.items() %}
-                <div>
-                    <p>
-                        <p><b><u>{{ gig.band_name }}</u></b></p><br>
-                        <b>Päivämäärä:</b> {{ gig.gig_date.strftime('%d.%m.%Y') }}<br>
-                        <b>Kaupunki:</b> {{ gig.city }}<br>
-                        <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
-                        <b>Kuvaus:</b> {{ gig.gig_description }}<br>
-                        <div name = "players">
-                                {% set ns = namespace(title='empty_set') %}
-                                {% for player in players %}
-                                    {% if ns.title != player.instrument_name %}
-                                        <h4>{{ player.instrument_name }}</h4>
-                                        {% set ns.title = player.instrument_name %}
-                                    {% endif %}
-                                <form action = "/delete-sign-up/{{ gig.id }}/{{ session.username }}" method = "POST">
-                                    <ul>
-                                        <li>{{ player.username }}, {{ player.instrument_name }}
-                                            {% if player.username == session.username %}
-                                                <input type = "submit" value = "Poista ilmoittautuminen">
-                                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">  
-                                            {% endif %}
-                                        </li>
-                                    </ul>
-                                </form>
-                                {% endfor %}
-                        </div>
-                    </p>
-                    <form name = "select_instrument" action = "/sign-up/{{ gig.id }}" method = "POST">
-                        <label for = "role_select">
-                            <select name = "instrument_chosen">
-                                {% for show, instruments in instruments.items() %}
-                                    {% if show == gig %}
-                                        {% for instrument in instruments %}
-                                        <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </label>
-                        <input type = "submit" value = "Ilmoittaudu">
-                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                    </form>
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+    <div>
+        <div class = "nav">
+            <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
+            <nav>
+                <a href = "/main-page">Selaa keikkoja</a><br>
+                <a href = "/manage-bands">Hallitse omia yhtyeitä</a><br>
+                <a href = "/create-band">Luo yhtye</a><br>
+                <a href = "/own-gigs">Omat ilmoitetut keikat</a><br>
+                <a href = "/own-gigs-to-play">Keikat mihin olet ilmoittautunut</a><br>
+                <a href = "/announce-gig">Ilmoita keikka</a><br>
+                <a href = "/logout">Kirjaudu ulos</a><br>
+            </nav>
+        </div>
+
+        <h2>Keikkailmoitukset</h2>
+        <!-- tästä vois ehkä tehdä jonkun fragmentin -->
+        <div class = "all_gigs">
+            {% if gigs_count|int() == 0|int() %}
+                <p>
+                    Ei vielä yhtään ilmoitettua keikkaa.. <br>
+                </p>
+            {% else %}    
+                <div name = "own_gigs">
+                    {% for gig, players in gigs.items() %}
+                    <div>
+                        <p>
+                            <p><b><u>{{ gig.band_name }}</u></b></p><br>
+                            <b>Päivämäärä:</b> {{ gig.gig_date.strftime('%d.%m.%Y') }}<br>
+                            <b>Kaupunki:</b> {{ gig.city }}<br>
+                            <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
+                            <b>Kuvaus:</b> {{ gig.gig_description }}<br>
+                            <div name = "players">
+                                    {% set ns = namespace(title='empty_set') %}
+                                    {% for player in players %}
+                                        {% if ns.title != player.instrument_name %}
+                                            <h4>{{ player.instrument_name }}</h4>
+                                            {% set ns.title = player.instrument_name %}
+                                        {% endif %}
+                                    <form action = "/delete-sign-up/{{ gig.id }}/{{ session.username }}" method = "POST">
+                                        <ul>
+                                            <li>{{ player.username }}, {{ player.instrument_name }}
+                                                {% if player.username == session.username %}
+                                                    <input type = "submit" value = "Poista ilmoittautuminen">
+                                                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">  
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </form>
+                                    {% endfor %}
+                            </div>
+                        </p>
+                        <form name = "select_instrument" action = "/sign-up/{{ gig.id }}" method = "POST">
+                            <label for = "role_select">
+                                <select name = "instrument_chosen">
+                                    {% for show, instruments in instruments.items() %}
+                                        {% if show == gig %}
+                                            {% for instrument in instruments %}
+                                            <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </label>
+                            <input type = "submit" value = "Ilmoittaudu">
+                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                        </form>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
+        <!--Tyyliin tänne?-->
     </div>
-    <!--Tyyliin tänne?-->
-</div>
+</body>

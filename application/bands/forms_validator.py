@@ -9,7 +9,7 @@ from utilities.db import db
 
 def validate_create_band(band_name, band_description, instrument_roles):
     error_messages = []
-    string_check = re.compile('[%?]')
+    string_check = re.compile('[%?#]')
 
     case_insensitive_band_query = bands.models.get_band_case_insensitive(band_name)
 

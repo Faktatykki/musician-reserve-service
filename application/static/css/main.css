@@ -1,0 +1,10 @@
+.nav {
+    letter-spacing:size;
+    padding-right: 30px;
+    padding-left:30px;
+    padding-top:20px;
+    padding-bottom:30px;
+    background-color: blue;
+    max-width: 20em;
+    font-family: "Courier New", monospace;
+}
