@@ -1,40 +1,51 @@
 
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/gigs.css') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <body>
     <div>
         <div class = "nav">
+            <div class = "title">
+                <h1>Varamuusikkopalvelu</h1>
+            </div>
             <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
             <nav>
-                <a href = "/main-page">Selaa keikkoja</a><br>
-                <a href = "/manage-bands">Hallitse omia yhtyeitä</a><br>
-                <a href = "/create-band">Luo yhtye</a><br>
-                <a href = "/own-gigs">Omat ilmoitetut keikat</a><br>
-                <a href = "/own-gigs-to-play">Keikat mihin olet ilmoittautunut</a><br>
-                <a href = "/announce-gig">Ilmoita keikka</a><br>
-                <a href = "/logout">Kirjaudu ulos</a><br>
+                <a href = "/main-page">Selaa keikkoja</a>
+                <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
+                <a href = "/create-band">Luo yhtye</a>
+                <a href = "/own-gigs">Omat ilmoitetut keikat</a>
+                <a href = "/own-gigs-to-play">Tuurauskeikat</a>
+                <a href = "/announce-gig">Ilmoita keikka</a>
+                <a href = "/logout">Kirjaudu ulos</a>
             </nav>
         </div>
 
-        <h2>Keikkailmoitukset</h2>
-        <!-- tästä vois ehkä tehdä jonkun fragmentin -->
-        <div class = "all_gigs">
+        
+        <div>
+            <div class = "announce_title">
+                <h2>Keikkailmoitukset</h2>
+            
             {% if gigs_count|int() == 0|int() %}
                 <p>
                     Ei vielä yhtään ilmoitettua keikkaa.. <br>
                 </p>
-            {% else %}    
-                <div name = "own_gigs">
+            {% else %}   
+                </div> 
+                <div class = "gigs_to_play">
                     {% for gig, players in gigs.items() %}
-                    <div>
+                    <div class = "gig">
                         <p>
-                            <p><b><u>{{ gig.band_name }}</u></b></p><br>
+                            <div class = "gig_title">
+                            <p><u><h3>{{ gig.band_name }}</h3></u></p><br>
+                            </div>
                             <b>Päivämäärä:</b> {{ gig.gig_date.strftime('%d.%m.%Y') }}<br>
                             <b>Kaupunki:</b> {{ gig.city }}<br>
                             <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
                             <b>Kuvaus:</b> {{ gig.gig_description }}<br>
-                            <div name = "players">
+                            <div class = "players">
+                                <br>
+                                    <u>Soittajat</u>
                                     {% set ns = namespace(title='empty_set') %}
                                     {% for player in players %}
                                         {% if ns.title != player.instrument_name %}
@@ -74,6 +85,5 @@
                 </div>
             {% endif %}
         </div>
-        <!--Tyyliin tänne?-->
     </div>
 </body>

@@ -1,31 +1,41 @@
-<div>
-    <div>
-        <h1>Ootko valmiina rokkaamaan?</h1>
 
-        <div class = "error">
-            {% if message %}
-                {{ message }}
-            {% endif %}
+<link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'css/login.css') }}">
+<link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'css/error.css') }}">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+    
+
+    <div class = "center">
+        <div class = "title">
+        <h1>Varamuusikkopalvelu</h1>
         </div>
+        <div class = "login_window">            
+            <h3>Kirjaudu sisään</h3>
 
-        <h3>Kirjaudu sisään</h3>
-
-        <form action = "/login" method = "POST">
-            <p>Tunnus:
-                <input type = "text" name = "username">
+            {% if message != None %}
+                <div class = "error">
+                        {{ message }}<br>
+                </div>
+            {% endif %}
+        
+            <form action = "/login" method = "POST">
+                <p>Tunnus:
+                    <input type = "text" name = "username">
+                </p>
+                <p>Salasana:
+                    <input type = "password" name = "password">
+                </p>
+                <input type = "submit" value = "Kirjaudu sisään">
+            </form>
+        
+                <p>
+                Ei vielä käyttäjätunnusta?
+                <p>
+                    <a href = "/create-user">Luo käyttäjätunnus</a>
+                </p>
             </p>
-            <p>Salasana:
-                <input type = "password" name = "password">
-            </p>
-            <input type = "submit" value = "Kirjaudu sisään">
-        </form>
+        </div>
     </div>
-    <div>
-        <p>
-            Ei vielä käyttäjätunnusta?
-            <p>
-                <a href = "/create-user">Luo käyttäjätunnus</a>
-            </p>
-        </p>
-    </div>
-</div>
+</body>

@@ -1,10 +1,39 @@
+.title {
+    margin: auto;
+    width: 50%;
+    font-family: "Courier New", monospace;
+    padding-top: 20px;
+    padding-bottom:20px;
+}
+
+body {
+    margin: auto;
+    width: 50%;
+    border: 3px solid #ba8fbc;
+    border-radius: 20px;
+    font-family: "Courier New", monospace;
+}
+
 .nav {
+    margin: auto;
     letter-spacing:size;
     padding-right: 30px;
     padding-left:30px;
     padding-top:20px;
     padding-bottom:30px;
-    background-color: blue;
-    max-width: 20em;
+    background-color: #8fbc8f;
+    max-width: 60em;
     font-family: "Courier New", monospace;
+    border-radius: 10px;
 }
+
+.highlight {
+    margin: auto;
+    width: auto;
+    border: 5px solid rgb(255, 0, 149);
+    border-radius: 10px;
+    background-color: rgb(192, 192, 192);
+    padding: 10px;
+}
+
+

@@ -1,28 +1,41 @@
-<div>
-    <a href = "/login">Takaisin</a>    
-    
-    <h2>Luo uusi käyttäjätunnus</h2>
+<link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'css/login.css') }}">
+<link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'css/error.css') }}">
 
-    <div class = "error">
-        {% for message in messages %}
-            {{ message }}<br>
-        {% endfor %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+    <div class = "center">
+        <div class = "title">
+            <h1>Varamuusikkopalvelu</h1>
+        </div>
+            <div class = "login_window">
+            <a href = "/login">Takaisin</a>    
+            
+            <h2>Luo uusi käyttäjätunnus</h2>
+
+            {% if message != None %}
+                <div class = "error">
+                    {% for message in messages %}
+                        {{ message }}<br>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form action = "/create-user" method = "POST">
+                <p>
+                    Käyttäjänimi:
+                    <input type = "text" name = "username">
+                </p>
+                <p>
+                    Salasana:
+                    <input type = "password" name = "password">
+                </p>
+                <p>
+                    Salasana uudelleen:
+                    <input type = "password" name = "password_again">
+                </p>
+                <input type = "submit" value = "Luo käyttäjätunnus">
+            </form>
+            </div>
     </div>
-
-    <form action = "/create-user" method = "POST">
-        <p>
-            Käyttäjänimi:
-            <input type = "text" name = "username">
-        </p>
-        <p>
-            Salasana:
-            <input type = "password" name = "password">
-        </p>
-        <p>
-            Salasana uudelleen:
-            <input type = "password" name = "password_again">
-        </p>
-        <input type = "submit" value = "Luo käyttäjätunnus">
-    </form>
-
-</div>
+</body>

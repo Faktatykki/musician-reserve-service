@@ -12,10 +12,12 @@ import main_page.views
 
 @app.before_request
 def before_request():
-    if request.path != "/login" and request.path != "/create-user" and request.path != "/logout":
-        if not users.models.logged_in():
+        if users.models.logged_in() and (request.path == "/login" or request.path == "/create-user"):
+            print(request.path)
+            return redirect("/main-page")
+        elif not users.models.logged_in() and request.path != "/login" and request.path != "/create-user" and "/static/" not in request.path:
+            print(request.path)
             return redirect("/login")
-        
     
 @app.route("/login")
 def login_front():

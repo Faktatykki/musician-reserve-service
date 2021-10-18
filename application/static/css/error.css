@@ -1,0 +1,7 @@
+.error {
+    margin: auto;
+    width: auto;
+    border: 5px solid red;
+    border-radius: 10px;
+    background-color: silver;
+}

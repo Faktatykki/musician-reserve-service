@@ -1,0 +1,29 @@
+.gigs_to_play {
+    margin: auto;
+    width: 100%;
+    background-color: red;
+    padding-top: 20px;
+}
+
+.gig {
+    margin: auto;
+    width: 70%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    border: 3px solid #000000;
+    background-color: rosybrown;
+}
+
+.announce_title {
+    margin: auto;
+    width: 30%;
+    
+}
+
+.gig_title {
+    margin: auto;
+    width:20%;
+}

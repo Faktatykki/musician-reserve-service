@@ -1,0 +1,26 @@
+body {
+    margin: auto;
+    width: 50%;
+    font-family: "Courier New", monospace;
+    background-color: blueviolet;
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+    border: 5px solid #FFFF00;
+    background-color: cornsilk;
+    padding: 40px;
+}
+
+.login_window {
+    margin: auto;
+    width: 70%;
+}
+
+.title {
+    margin: auto;
+    width: 70%;
+    font-family: "Courier New", monospace;
+    padding-bottom:20px;
+}

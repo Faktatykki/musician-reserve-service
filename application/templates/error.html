@@ -1,17 +1,36 @@
-<div>
-    <div class = "nav">
-        <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
-        <nav>
-            <a href = "/main-page">Selaa keikkoja</a>
-            <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
-            <a href = "/create-band">Luo yhtye</a>
-            <a href = "/own-gigs">Omat ilmoitetut keikat</a>
-            <a href = "/own-gigs-to-play">Keikat mihin olet ilmoittautunut</a>
-            <a href = "/announce-gig">Ilmoita keikka</a>
-            <a href = "/logout">Kirjaudu ulos</a>
-        </nav>
-    </div>
+<link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'css/login.css') }}">
+<link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'css/error.css') }}">
+<link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'css/main.css') }}">
 
-    {{ message }} <br>
-    <a href = "{{ link_back }}">{{ link_name }}</a>
-</div>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+    <div class = "center">
+        <div class = "title">
+            <h1>Varamuusikkopalvelu</h1>
+        </div>
+        <div class = "login_window">
+        {% if session.username %}
+            <div class = "nav">
+                <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
+                <nav>
+                    <a href = "/main-page">Selaa keikkoja</a>
+                    <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
+                    <a href = "/create-band">Luo yhtye</a>
+                    <a href = "/own-gigs">Omat ilmoitetut keikat</a>
+                    <a href = "/own-gigs-to-play">Tuurauskeikat</a>
+                    <a href = "/announce-gig">Ilmoita keikka</a>
+                    <a href = "/logout">Kirjaudu ulos</a>
+                </nav>
+            </div>
+        {% endif %}
+            <div class = "highlight">
+                {{ message }} <br>
+            </div>
+            <div class = "center">
+                <a href = "{{ link_back }}">{{ link_name }}</a>
+            </div>
+        </div>
+    </div>
+</body>
