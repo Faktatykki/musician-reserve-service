@@ -1,32 +1,45 @@
-<div>
-    <div class = "nav">
-        <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
-        <nav>
-            <a href = "/main-page">Selaa keikkoja</a>
-            <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
-            <a href = "/create-band">Luo yhtye</a>
-            <a href = "/own-gigs">Omat ilmoitetut keikat</a>
-            <a href = "/own-gigs-to-play">Tuurauskeikat</a>
-            <a href = "/announce-gig">Ilmoita keikka</a>
-            <a href = "/logout">Kirjaudu ulos</a>
-        </nav>
-    </div>
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/bands.css') }}">
 
-        <h2>Omat yhtyeet</h2>
-        {% if band_count|int() == 0|int() %}
-        <p>Ei vielä yhtään omaa yhtyettä.. 
-            <a href = "/create-band">Luo ensimmäinen yhtyeesi!</a>
-        </p>
-        {% else %}
-            <p>
-                {% for band in bands %}
-                <form action = "/delete-band/{{ band.band_name }}" method = "POST">
-                    <p>{{ band.band_name }}    
-                        <input type = "submit" value = "Poista yhtye">
-                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">                    </p>
-                </form>
-                {% endfor %}
-            </p>
-                <a href = "/create-band">Luo uusi yhtye</a>
-        {% endif %}  
-</div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+        <div>
+            <div class = "nav">
+                <div class = "title">
+                    <h1>Varamuusikkopalvelu</h1>
+                </div>
+                <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
+                <nav>
+                    <a href = "/main-page">Selaa keikkoja</a>
+                    <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
+                    <a href = "/create-band">Luo yhtye</a>
+                    <a href = "/own-gigs">Omat ilmoitetut keikat</a>
+                    <a href = "/own-gigs-to-play">Tuurauskeikat</a>
+                    <a href = "/announce-gig">Ilmoita keikka</a>
+                    <a href = "/logout">Kirjaudu ulos</a>
+                </nav>
+            </div>
+            <div class = "center_no_border">
+                <div class = "center_no_border_no_padding">
+                <h2>Omat yhtyeet</h2>
+                {% if band_count|int() == 0|int() %}
+                <p>Ei vielä yhtään omaa yhtyettä.. 
+                    <a href = "/create-band">Luo ensimmäinen yhtyeesi!</a>
+                </p>
+                {% else %}
+                    <p>
+                        {% for band in bands %}
+                        <form action = "/delete-band/{{ band.band_name }}" method = "POST">
+                            <p>{{ band.band_name }}    
+                                <input type = "submit" value = "Poista yhtye">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">                    </p>
+                        </form>
+                        {% endfor %}
+                    </p>
+                        <a href = "/create-band">Luo uusi yhtye</a>
+                {% endif %}  
+                </div>
+            </div>
+        </div>
+</body>

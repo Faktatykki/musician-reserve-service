@@ -5,6 +5,16 @@
     padding-top: 20px;
     padding-bottom:20px;
 }
+.center_no_border {
+    margin: auto;
+    width: 60%;
+    padding: 40px;
+}
+
+.center_no_border_no_padding {
+    margin: auto;
+    width: 60%;
+}
 
 body {
     margin: auto;

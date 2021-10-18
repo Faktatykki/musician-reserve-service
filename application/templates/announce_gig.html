@@ -1,50 +1,68 @@
-<div>
-    <div class = "nav">
-        <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
-        <nav>
-            <a href = "/main-page">Selaa keikkoja</a>
-            <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
-            <a href = "/create-band">Luo yhtye</a>
-            <a href = "/own-gigs">Omat ilmoitetut keikat</a>
-            <a href = "/own-gigs-to-play">Tuurauskeikat</a>
-            <a href = "/announce-gig">Ilmoita keikka</a>
-            <a href = "/logout">Kirjaudu ulos</a>
-        </nav>
-    </div>
-    
-    <h1>Ilmoita {{band}}-keikka</h1>
-    
-    <div class = "error">
-        {% for message in messages %}
-            {{ message }}<br>
-        {% endfor %}
-    </div>
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/bands.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/error.css') }}">
 
-    <form name = "create_gig_form" action = "/announce-gig/{{band}}" method = "POST">
-        <p>
-        Päivämäärä: <input name = "gig_date" type = "date" format = "dd/mm/yyyy" placeholder="DD-MM-YYYY">
-        </p>
-        <p>
-        Kaupunki: <input name = "city" type = "text">
-        </p>
-        <p>
-        Tapahtumapaikka: <input name = "venue" type = "text">
-        </p>
-        Kuvaus: <input name = "description" type = "text">
-        <p>
-        Valitse oma roolisi:
-        <label for = "role_select">
-            <select name = "instrument_chosen">
-                {% for instruments in instruments %}
-                    {% for instrument in instruments %}
-                        <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
-                    {% endfor %}
-                {% endfor %}
-            </select>
-        <p>
-            <input type = "submit" value = "ilmoita keikka!">
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        </p>
-        </p>
-    </form> 
-</div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+    <div>
+        <div class = "nav">
+            <div class = "title">
+                <h1>Varamuusikkopalvelu</h1>
+            </div>
+            <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
+            <nav>
+                <a href = "/main-page">Selaa keikkoja</a>
+                <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
+                <a href = "/create-band">Luo yhtye</a>
+                <a href = "/own-gigs">Omat ilmoitetut keikat</a>
+                <a href = "/own-gigs-to-play">Tuurauskeikat</a>
+                <a href = "/announce-gig">Ilmoita keikka</a>
+                <a href = "/logout">Kirjaudu ulos</a>
+            </nav>
+        </div>
+        
+        <div class = "center_no_border_no_padding">
+            <h1>Ilmoita {{band}}-keikka</h1>
+        </div>
+        
+        {% if message != None %}
+        <div class = "error">
+            {% for message in messages %}
+                {{ message }}<br>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class = "center_no_border">
+            <div class = "center_no_border_no_padding">
+                <form name = "create_gig_form" action = "/announce-gig/{{band}}" method = "POST">
+                    <p>
+                    Päivämäärä: <input name = "gig_date" type = "date" format = "dd/mm/yyyy" placeholder="DD-MM-YYYY">
+                    </p>
+                    <p>
+                    Kaupunki: <input name = "city" type = "text">
+                    </p>
+                    <p>
+                    Tapahtumapaikka: <input name = "venue" type = "text">
+                    </p>
+                    Kuvaus: <input name = "description" type = "text">
+                    <p>
+                    Valitse oma roolisi:
+                    <label for = "role_select">
+                        <select name = "instrument_chosen">
+                            {% for instruments in instruments %}
+                                {% for instrument in instruments %}
+                                    <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                        </select>
+                    <p>
+                        <input type = "submit" value = "ilmoita keikka!">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </p>
+                    </p>
+                </form> 
+            </div>   
+        </div>
+    </div>
+</body>

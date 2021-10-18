@@ -1,56 +1,70 @@
-<div>
-    <div class = "nav">
-        <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
-        <nav>
-            <a href = "/main-page">Selaa keikkoja</a>
-            <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
-            <a href = "/create-band">Luo yhtye</a>
-            <a href = "/own-gigs">Omat ilmoitetut keikat</a>
-            <a href = "/own-gigs-to-play">Tuurauskeikat</a>
-            <a href = "/announce-gig">Ilmoita keikka</a>
-            <a href = "/logout">Kirjaudu ulos</a>
-        </nav>
-    </div>
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/gigs.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <h2>Keikat joille olet ilmoittautunut</h2>
-    <!-- tästä vois ehkä tehdä jonkun fragmentin -->
-    <div name = "all_gigs">
-        {% if gigs_count|int() == 0|int() %}
-            <p>
-                Et ole ilmoittautunut tuuraamaan vielä yhdellekkään keikalle...<br>
-                <a href = "/main-page">Mene selaamaan!</a>
-            </p>
-        {% else %}    
-            <div name = "own_gigs">
-                {% for gig, players in gigs.items() %}
-                <div>
+<body>
+    <div>
+        <div class = "nav">
+            <div class = "title">
+                <h1>Varamuusikkopalvelu</h1>
+            </div>
+            <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
+            <nav>
+                <a href = "/main-page">Selaa keikkoja</a>
+                <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
+                <a href = "/create-band">Luo yhtye</a>
+                <a href = "/own-gigs">Omat ilmoitetut keikat</a>
+                <a href = "/own-gigs-to-play">Tuurauskeikat</a>
+                <a href = "/announce-gig">Ilmoita keikka</a>
+                <a href = "/logout">Kirjaudu ulos</a>
+            </nav>
+        </div>
+
+        <div class = "title">
+            <h2>Keikat joille olet ilmoittautunut (Ei omat keikat)</h2>
+        </div>
+            {% if gigs_count|int() == 0|int() %}
+                <div class = "center_no_border_no_padding">
                     <p>
-                        <p><b><u>{{ gig.band_name }}</u></b></p><br>
-                        <b>Päivämäärä:</b> {{ gig.gig_date.strftime('%d.%m.%Y') }}<br>
-                        <b>Kaupunki:</b> {{ gig.city }}<br>
-                        <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
-                        <b>Kuvaus:</b> {{ gig.gig_description }}<br>
-                        <div name = "players">
-                                {% set ns = namespace(title='empty_set') %}
-                                {% for player in players %}
-                                    {% if ns.title != player.instrument_name %}
-                                        <h4>{{ player.instrument_name }}</h4>
-                                        {% set ns.title = player.instrument_name %}
-                                    {% endif %}
-                                <form action = "/delete-sign-up/{{ gig.id }}/{{ session.username }}" method = "POST">
-                                    <ul>
-                                        <li>{{ player.username }}, {{ player.instrument_name }}
-                                            {% if player.username == session.username %}
-                                                <input type = "submit" value = "Poista ilmoittautuminen">
-                                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">  
-                                            {% endif %}
-                                        </li>
-                                    </ul>
-                                </form>
-                                {% endfor %}
-                        </div>
+                        Et ole ilmoittautunut tuuraamaan vielä yhdellekkään keikalle... 
+                        <a href = "/main-page">Mene selaamaan!</a>
                     </p>
-                <div>
-                {% endfor %}
+                </div>
+            {% else %}    
+                <div class = "gigs_to_play">
+                    {% for gig, players in gigs.items() %}
+                    <div class = "gig">
+                        <p>
+                            <div class = "gig_title">
+                            <p><u><h3>{{ gig.band_name}}</h3></u></p>
+                            </div>
+                            <b>Päivämäärä:</b> {{ gig.gig_date.strftime('%d.%m.%Y') }}<br>
+                            <b>Kaupunki:</b> {{ gig.city }}<br>
+                            <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
+                            <b>Kuvaus:</b> {{ gig.gig_description }}<br>
+                            <div name = "players">
+                                    {% set ns = namespace(title='empty_set') %}
+                                    {% for player in players %}
+                                        {% if ns.title != player.instrument_name %}
+                                            <h4>{{ player.instrument_name }}</h4>
+                                            {% set ns.title = player.instrument_name %}
+                                        {% endif %}
+                                    <form action = "/delete-sign-up/{{ gig.id }}/{{ session.username }}" method = "POST">
+                                        <ul>
+                                            <li>{{ player.username }}, {{ player.instrument_name }}
+                                                {% if player.username == session.username %}
+                                                    <input type = "submit" value = "Poista ilmoittautuminen">
+                                                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">  
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </form>
+                                    {% endfor %}
+                            </div>
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
         {% endif %}
-</div>
+    </div>
+</body>

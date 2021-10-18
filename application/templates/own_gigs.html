@@ -1,55 +1,68 @@
-<div>
-    <div class = "nav">
-        <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
-        <nav>
-            <a href = "/main-page">Selaa keikkoja</a>
-            <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
-            <a href = "/create-band">Luo yhtye</a>
-            <a href = "/own-gigs">Omat ilmoitetut keikat</a>
-            <a href = "/own-gigs-to-play">Tuurauskeikat</a>
-            <a href = "/announce-gig">Ilmoita keikka</a>
-            <a href = "/logout">Kirjaudu ulos</a>
-        </nav>
-    </div>
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/gigs.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <h2>Omat ilmoitetut keikat</h2>
-    {% if gigs_count|int() == 0|int() %}
-        <p>
-            Ei vielä yhtäkään muiden ilmoittamaa keikkaa.. <br>
-            <a href = "/announce-gig">Mee ilmottaa!</a>
-        </p>
-    {% else %}    
-        <div name = "own_gigs">
-            <p>
-                {% for gig, players in gigs.items() %}
-                <p>
-                    <p><b><u>{{ gig.band_name}}</u></b></p>
-                    <b>Päivämäärä:</b> {{ gig.gig_date.strftime('%d.%m.%Y') }}<br>
-                    <b>Kaupunki:</b> {{ gig.city }}<br>
-                    <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
-                    <b>Kuvaus:</b> {{ gig.gig_description }}<br>
-                    <div name = "players">
-
-                        {% set ns = namespace(title='empty_set') %}
-                        {% for player in players %}
-                            {% if ns.title != player.instrument_name %}
-                                <h4>{{ player.instrument_name }}</h4>
-                                {% set ns.title = player.instrument_name %}
-                            {% endif %}
-                                <ul>
-                                    <li>{{ player.username }}, {{ player.instrument_name}}</li>
-                                </ul>    
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <form action = "/delete-gig/{{ gig.id }}" method = "POST">
-                        <input type = "submit" value = "Poista keikka">
-                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                    </form><br>
-                </p>
-                {% endfor %}
-            </p>
+<body>
+    <div>
+        <div class = "nav">
+            <div class = "title">
+                <h1>Varamuusikkopalvelu</h1>
+            </div>
+            <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
+            <nav>
+                <a href = "/main-page">Selaa keikkoja</a>
+                <a href = "/manage-bands">Hallitse omia yhtyeitä</a>
+                <a href = "/create-band">Luo yhtye</a>
+                <a href = "/own-gigs">Omat ilmoitetut keikat</a>
+                <a href = "/own-gigs-to-play">Tuurauskeikat</a>
+                <a href = "/announce-gig">Ilmoita keikka</a>
+                <a href = "/logout">Kirjaudu ulos</a>
+            </nav>
         </div>
-    {% endif %}
-    
-</div>
+
+        <div class = "title">
+        <h2>Omat ilmoitetut keikat</h2>
+        </div>
+        {% if gigs_count|int() == 0|int() %}
+            <p>
+                Ei vielä yhtäkään muiden ilmoittamaa keikkaa.. <br>
+                <a href = "/announce-gig">Mee ilmottaa!</a>
+            </p>
+        {% else %}    
+            <div class = "gigs_to_play">
+                <p>
+                    {% for gig, players in gigs.items() %}
+                    <div class = "gig">
+                    <p>
+                        <div class = "gig_title">
+                        <p><u><h3>{{ gig.band_name}}</h3></u></p>
+                        </div>
+                        <b>Päivämäärä:</b> {{ gig.gig_date.strftime('%d.%m.%Y') }}<br>
+                        <b>Kaupunki:</b> {{ gig.city }}<br>
+                        <b>Tapahtumapaikka:</b> {{ gig.venue }}<br>
+                        <b>Kuvaus:</b> {{ gig.gig_description }}<br>
+                        <div class = "players">
+                            {% set ns = namespace(title='empty_set') %}
+                            {% for player in players %}
+                                {% if ns.title != player.instrument_name %}
+                                    <h4>{{ player.instrument_name }}</h4>
+                                    {% set ns.title = player.instrument_name %}
+                                {% endif %}
+                                    <ul>
+                                        <li>{{ player.username }}, {{ player.instrument_name}}</li>
+                                    </ul>    
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <form action = "/delete-gig/{{ gig.id }}" method = "POST">
+                            <input type = "submit" value = "Poista keikka">
+                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                        </form><br>
+                    </p>
+                    </div>
+                    {% endfor %}
+                </p>
+            </div>
+        {% endif %}
+    </div>
+</body>
