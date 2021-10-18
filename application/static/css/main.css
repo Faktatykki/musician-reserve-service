@@ -7,7 +7,7 @@
 }
 .center_no_border {
     margin: auto;
-    width: 60%;
+    width: 65%;
     padding: 40px;
 }
 
@@ -19,9 +19,9 @@
 body {
     margin: auto;
     width: 50%;
-    border: 3px solid #ba8fbc;
     border-radius: 20px;
     font-family: "Courier New", monospace;
+    background-color: rgb(178, 209, 235);
 }
 
 .nav {
@@ -43,6 +43,31 @@ body {
     border: 5px solid rgb(255, 0, 149);
     border-radius: 10px;
     background-color: rgb(192, 192, 192);
+    padding: 10px;
+}
+
+.button_green {
+    background-color: #8fbc8f;
+    border: none;
+    border-radius: 10px;
+    font-family: "Courier New", monospace;
+    padding: 10px;
+}
+
+.button_pink {
+    background-color: rgb(234, 165, 236);
+    border: none;
+    border-radius: 10px;
+    font-family: "Courier New", monospace;
+    padding: 10px;
+}
+
+.select {
+    background-color: rgb(178, 209, 235);
+    border: none;
+    border-radius: 10px;
+    font-family: "Courier New", monospace;
+    font-size: 16px;
     padding: 10px;
 }
 

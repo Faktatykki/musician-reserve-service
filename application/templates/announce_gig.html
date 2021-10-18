@@ -1,6 +1,7 @@
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/bands.css') }}">
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/error.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/login.css') }}">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,19 +38,19 @@
             <div class = "center_no_border_no_padding">
                 <form name = "create_gig_form" action = "/announce-gig/{{band}}" method = "POST">
                     <p>
-                    Päivämäärä: <input name = "gig_date" type = "date" format = "dd/mm/yyyy" placeholder="DD-MM-YYYY">
+                    Päivämäärä: <input class = "button_yellow" name = "gig_date" type = "date" format = "dd/mm/yyyy" placeholder="DD-MM-YYYY">
                     </p>
                     <p>
-                    Kaupunki: <input name = "city" type = "text">
+                    Kaupunki: <input class = "button_yellow" name = "city" type = "text">
                     </p>
                     <p>
-                    Tapahtumapaikka: <input name = "venue" type = "text">
+                    Tapahtumapaikka: <input class = "button_yellow" name = "venue" type = "text">
                     </p>
-                    Kuvaus: <input name = "description" type = "text">
+                    Kuvaus: <input class = "button_yellow" name = "description" type = "text">
                     <p>
                     Valitse oma roolisi:
                     <label for = "role_select">
-                        <select name = "instrument_chosen">
+                        <select class = "button_yellow" name = "instrument_chosen">
                             {% for instruments in instruments %}
                                 {% for instrument in instruments %}
                                     <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
@@ -57,7 +58,7 @@
                             {% endfor %}
                         </select>
                     <p>
-                        <input type = "submit" value = "ilmoita keikka!">
+                        <input class = "button_pink" type = "submit" value = "ilmoita keikka!">
                         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </p>
                     </p>

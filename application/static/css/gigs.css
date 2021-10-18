@@ -1,8 +1,10 @@
 .gigs_to_play {
     margin: auto;
     width: 100%;
-    background-color: red;
+    background-color: rgb(234, 165, 236);
     padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
 }
 
 .gig {
@@ -13,8 +15,8 @@
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 10px;
-    border: 3px solid #000000;
-    background-color: rosybrown;
+    border: 3px solid #8fbc8f;
+    background-color: rgb(224, 212, 143);
 }
 
 .announce_title {

@@ -1,6 +1,7 @@
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/bands.css') }}">
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/error.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/login.css') }}">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,13 +38,13 @@
             <form name = "create_band_form" action = "/create-band" method = "POST">
                 <p>
                     Yhtyeen nimi:
-                    <input type = "text" name = "band_name">
+                    <input class = "button_yellow" type = "text" name = "band_name">
                 </p>
                     <u><b>Valitse tarvittavat yhtyeen roolit</b></u><br>
                     <i>*Psst! Kannattaa valita kaikki mahdolliset roolit mitä tulevaisuudessa saattaa tarvita. Koskaan ei tiedä!*</i>
                 <p>
                     <label for = "roleSelector1">1. Rooli</label>
-                        <select name = "1_instrument">
+                        <select class = "button_yellow" name = "1_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -51,7 +52,7 @@
                 </p>
                 <p>
                     <label for = "roleSelector2">2. Rooli</label>
-                        <select name = "2_instrument">
+                        <select class = "button_yellow" name = "2_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -59,7 +60,7 @@
                 </p>
                 <p>
                     <label for = "roleSelector3">3. Rooli</label>
-                        <select name = "3_instrument">
+                        <select class = "button_yellow" name = "3_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -67,7 +68,7 @@
                 </p>
                 <p>
                     <label for = "roleSelector4">4. Rooli</label>
-                        <select name = "4_instrument">
+                        <select class = "button_yellow" name = "4_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -75,7 +76,7 @@
                 </p>
                 <p>
                     <label for = "roleSelector5">5. Rooli</label>
-                        <select name = "5_instrument">
+                        <select class = "button_yellow" name = "5_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -83,7 +84,7 @@
                 </p>
                 <p>
                     <label for = "roleSelector6">6. Rooli</label>
-                        <select name = "6_instrument">
+                        <select class = "button_yellow" name = "6_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -91,7 +92,7 @@
                 </p>
                 <p>
                     <label for = "roleSelector7">7. Rooli</label>
-                        <select name = "7_instrument">
+                        <select class = "button_yellow" name = "7_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -99,7 +100,7 @@
                 </p>
                 <p>
                     <label for = "roleSelector8">8. Rooli</label>
-                        <select name = "8_instrument">
+                        <select class = "button_yellow" name = "8_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -107,7 +108,7 @@
                 </p>
                 <p>
                     <label for = "roleSelector9">9. Rooli</label>
-                        <select name = "9_instrument">
+                        <select class = "button_yellow" name = "9_instrument">
                             {% for instrument in instruments %}
                             <option value = "{{ instrument }}" SELECTED>{{instrument}}</option>
                             {% endfor %}
@@ -115,9 +116,9 @@
                 </p>
                 <p>
                     Kuvaus:
-                    <input type = "text" name = "description">
+                    <input class = "button_yellow" type = "text" name = "description">
                 </p>
-                    <input type = "submit" value = "Luo yhtye">
+                    <input class = "button_pink" type = "submit" value = "Luo yhtye">
                     <input type = "hidden" name = "csrf_token" value = "{{ session.csrf_token }}">
             </form>
             </div>

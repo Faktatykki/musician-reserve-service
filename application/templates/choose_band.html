@@ -1,6 +1,7 @@
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/bands.css') }}">
 <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/error.css') }}">
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/login.css') }}">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,13 +29,13 @@
             {% if band_count|int() != 0|int() %}
                 <form name = "choose_band" action = "{{url_for('announce_gig', band='selected_band')}}" method = "GET">
                     <label for = "band_selector">Valitse yhtye:</label>
-                                    <select name = "selected_band">
+                                    <select class = "button_yellow" name = "selected_band">
                                         {% for band in bands %}
                                         <option value = "{{ band }}" SELECTED>{{ band }}</option>
                                         {% endfor %}
                                     </select>
                     <p>
-                        <input type = "submit" value = "Valitse yhtye">
+                        <input class = "button_yellow" type = "submit" value = "Valitse yhtye">
                         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </p>
                 </form>

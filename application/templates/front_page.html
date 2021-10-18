@@ -55,7 +55,7 @@
                                         <ul>
                                             <li>{{ player.username }}, {{ player.instrument_name }}
                                                 {% if player.username == session.username %}
-                                                    <input type = "submit" value = "Poista ilmoittautuminen">
+                                                    <input class = "button_green" type = "submit" value = "Poista ilmoittautuminen">
                                                     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">  
                                                 {% endif %}
                                             </li>
@@ -66,17 +66,17 @@
                         </p>
                         <form name = "select_instrument" action = "/sign-up/{{ gig.id }}" method = "POST">
                             <label for = "role_select">
-                                <select name = "instrument_chosen">
+                                <select class = "select" name = "instrument_chosen">
                                     {% for show, instruments in instruments.items() %}
                                         {% if show == gig %}
                                             {% for instrument in instruments %}
-                                            <option value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
+                                            <option class = "select" value = "{{ instrument }}" SELECTED>{{ instrument }}</option>
                                             {% endfor %}
                                         {% endif %}
                                     {% endfor %}
                                 </select>
                             </label>
-                            <input type = "submit" value = "Ilmoittaudu">
+                            <input class = "button_green" type = "submit" value = "Ilmoittaudu">
                             <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                         </form>
                     </div>

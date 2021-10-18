@@ -24,10 +24,12 @@
         <h2>Omat ilmoitetut keikat</h2>
         </div>
         {% if gigs_count|int() == 0|int() %}
-            <p>
-                Ei vielä yhtäkään muiden ilmoittamaa keikkaa.. <br>
-                <a href = "/announce-gig">Mee ilmottaa!</a>
-            </p>
+            <div class = "center_no_border">
+                <p>
+                    Ei vielä yhtäkään muiden ilmoittamaa keikkaa.. 
+                    <a href = "/announce-gig">Mee ilmottaa!</a>
+                </p>
+            </div>
         {% else %}    
             <div class = "gigs_to_play">
                 <p>
@@ -55,7 +57,7 @@
                             </ul>
                         </div>
                         <form action = "/delete-gig/{{ gig.id }}" method = "POST">
-                            <input type = "submit" value = "Poista keikka">
+                            <input class = "button_green" type = "submit" value = "Poista keikka">
                             <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                         </form><br>
                     </p>
