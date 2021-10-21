@@ -1,11 +1,4 @@
-from flask import Flask, redirect, request, render_template, session
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from app import app
-
 import re
-from os import getenv
-from utilities.db import db
 
 import users.models
 

@@ -1,14 +1,9 @@
-from flask import Flask, redirect, request, render_template, session
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask import redirect, request, render_template
 
 from app import app
 
-from os import getenv
-from utilities.db import db
-
 import users.models
 import users.forms_validator
-import main_page.views
 
 @app.before_request
 def before_request():

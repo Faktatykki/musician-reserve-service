@@ -1,13 +1,10 @@
-from flask import Flask, redirect, request, render_template, session
+from flask import redirect, request, render_template
 from app import app
 
-import re
 import users.models
 import bands.models
-import instruments.models
 import gigs.models
 
-from utilities.db import db
 import gigs.forms_validator
 
 @app.route("/announce-gig")

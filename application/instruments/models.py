@@ -1,9 +1,3 @@
-from flask import Flask, redirect, request, render_template, session
-from app import app
-
-import re
-import users.models
-import bands.models
 import gigs.models
 
 from utilities.db import db

@@ -1,11 +1,7 @@
-from flask import Flask, redirect, request, render_template, session
-from werkzeug.security import check_password_hash, generate_password_hash
-
 from app import app
 
 import re
 import bands.models
-from utilities.db import db
 
 def validate_create_band(band_name, band_description, instrument_roles):
     error_messages = []

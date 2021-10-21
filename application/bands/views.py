@@ -1,8 +1,5 @@
-from flask import Flask, redirect, request, render_template, session
-from flask.helpers import url_for
+from flask import redirect, request, render_template
 from app import app
-
-from utilities.db import db
 
 import users.models
 import instruments.models
