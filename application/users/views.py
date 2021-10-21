@@ -2,11 +2,16 @@ from flask import redirect, request, render_template
 
 from app import app
 
+import main_page.views
+
 import users.models
 import users.forms_validator
+import gigs.models
 
 @app.before_request
 def before_request():
+        gigs.models.delete_past_gigs()
+
         if users.models.logged_in() and (request.path == "/login" or request.path == "/create-user"):
             print(request.path)
             return redirect("/main-page")

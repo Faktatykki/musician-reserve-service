@@ -5,13 +5,12 @@ import instruments.models
 
 from utilities.db import db
 
+
 def get_gigs_and_players(own_gigs):
     user_id = users.models.get_user(users.models.get_session()).id
 
     gigs_users_dict = {}
     gigs_instruments_dict = {}
-
-    print(own_gigs)
 
     if own_gigs:
         gigs = get_own_gigs(user_id)
@@ -58,6 +57,14 @@ def delete_sign_up(gig_id, username):
     except Exception as e:
         print(e)
 
+def delete_past_gigs():
+    try:
+        sql = "DELETE FROM gigs WHERE gig_date < NOW()::date"
+        db.session.execute(sql)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        
     return
 
 def announce_gig(gig_date, city, venue, gig_description, instrument_name, band_name):

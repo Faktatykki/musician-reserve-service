@@ -1,6 +1,8 @@
 from flask import redirect, request, render_template
 from app import app
 
+import bands.views
+
 import gigs.views
 import gigs.models
 import users.models
