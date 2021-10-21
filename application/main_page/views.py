@@ -2,15 +2,22 @@ from flask import redirect, request, render_template
 from app import app
 
 import bands.views
-
 import gigs.views
+
+import main_page.models
 import gigs.models
 import users.models
 
 @app.route("/main-page")
 def front_page():
     gigs_dict = gigs.models.get_gigs_and_players(False)
-    return render_template("front_page.html", gigs = gigs_dict["users"], gigs_count = len(gigs_dict["gigs"]), instruments = gigs_dict["instruments"])
+    
+    band_count = main_page.models.get_band_count()
+    gig_count = main_page.models.get_gig_count()
+    avg_members = main_page.models.get_avg_count_members()
+
+    return render_template("front_page.html", gigs = gigs_dict["users"], gigs_count = len(gigs_dict["gigs"]), instruments = gigs_dict["instruments"],
+                            band_count = band_count, gig_count = gig_count, avg_members = avg_members)
 
 #tää omaan reitittimeen tai jotain?
 @app.route("/sign-up/<int:gig_id>", methods = ["POST"])

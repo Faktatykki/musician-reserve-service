@@ -108,7 +108,7 @@ def get_not_own_gigs(user_id):
     gigs = None
 
     try:
-        sql = "SELECT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
+        sql = "SELECT DISTINCT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
             bands WHERE bands.id = gigs.band_id AND usersgigs.user_id != :id AND gigs.id = usersgigs.gig_id AND \
             own_gig = 'TRUE' ORDER BY gig_date"
         result = db.session.execute(sql, {"id":user_id})
@@ -123,7 +123,7 @@ def get_own_gigs(user_id):
     gigs = None
     
     try:
-        sql = "SELECT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
+        sql = "SELECT DISTINCT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
         bands WHERE bands.id = gigs.band_id AND usersgigs.user_id = :id AND gigs.id = usersgigs.gig_id AND \
         own_gig = 'TRUE' ORDER BY gig_date"
         result = db.session.execute(sql, {"id":user_id})
@@ -137,7 +137,7 @@ def get_signed_up_gigs(user_id):
     gigs = None
 
     try:
-        sql = "SELECT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
+        sql = "SELECT DISTINCT gigs.id, band_name, band_id, gig_date, city, venue, gig_description FROM gigs, usersgigs, \
             bands WHERE bands.id = gigs.band_id AND usersgigs.user_id = :id AND gigs.id = usersgigs.gig_id AND \
             own_gig = 'FALSE' ORDER BY gig_date"
         result = db.session.execute(sql, {"id":user_id})
@@ -175,7 +175,6 @@ def get_bands_instruments(band_id):
 
     return instruments
 
-#tää johonkin utilities
 def trim_results(array):
     pattern = r"[\'(,)]"
 

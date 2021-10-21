@@ -10,6 +10,11 @@
                 <h1>Varamuusikkopalvelu</h1>
             </div>
             <h4>Olet kirjautunut käyttäjänimellä {{ session.username }}</h4>
+            <p>
+                Yhtyeitä tietokannassa: {{ band_count }} <br>
+                Keikkoja ilmoitettu: {{ gig_count }}    <br>
+                Yhtyeiden roolien määrä (keskiarvo): {{ avg_members }} <br>
+            </p>
             <nav>
                 <a href = "/main-page">Selaa keikkoja</a>
                 <a href = "/manage-bands">Hallitse omia yhtyeitä</a>

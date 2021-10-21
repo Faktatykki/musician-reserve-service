@@ -13,10 +13,8 @@ def before_request():
         gigs.models.delete_past_gigs()
 
         if users.models.logged_in() and (request.path == "/login" or request.path == "/create-user"):
-            print(request.path)
             return redirect("/main-page")
         elif not users.models.logged_in() and request.path != "/login" and request.path != "/create-user" and "/static/" not in request.path:
-            print(request.path)
             return redirect("/login")
     
 @app.route("/login")

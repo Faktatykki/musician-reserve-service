@@ -9,7 +9,6 @@ import gigs.forms_validator
 
 @app.route("/announce-gig")
 def announce_gig_menu():
-
     user = users.models.get_user(users.models.get_session())
     bands_result = gigs.models.trim_results(bands.models.get_own_bands(user.id))
 
@@ -17,7 +16,6 @@ def announce_gig_menu():
 
 @app.route("/announce-gig/<band>")
 def announce_gig(band):
-    #url-forin antama parametri
     band_name = request.args.get("selected_band")
 
     band_id = bands.models.get_band(band_name).id

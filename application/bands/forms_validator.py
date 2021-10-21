@@ -1,5 +1,3 @@
-from app import app
-
 import re
 import bands.models
 
@@ -24,7 +22,6 @@ def validate_create_band(band_name, band_description, instrument_roles):
     only_none = True
 
     for i in range(len(instrument_roles)):
-        print(instrument_roles[i])
         if instrument_roles[i] != "None":
             only_none = False
             
