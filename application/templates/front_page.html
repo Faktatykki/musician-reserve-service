@@ -56,7 +56,7 @@
                                             <h4>{{ player.instrument_name }}</h4>
                                             {% set ns.title = player.instrument_name %}
                                         {% endif %}
-                                    <form action = "/delete-sign-up/{{ gig.id }}/{{ session.username }}" method = "POST">
+                                    <form action = "/delete-sign-up/{{ gig.id }}/{{ session.username }}" method = "POST" onsubmit = "return confirm('Oletko varma että haluat poistaa ilmoittautumisesi?')">
                                         <ul>
                                             <li>{{ player.username }}, {{ player.instrument_name }}
                                                 {% if player.username == session.username %}

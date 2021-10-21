@@ -29,10 +29,11 @@
                 {% else %}
                     <p>
                         {% for band in bands %}
-                        <form action = "/delete-band/{{ band.band_name }}" method = "POST">
+                        <form action = "/delete-band/{{ band.band_name }}" method = "POST" onsubmit = "return confirm('Oletko varma että haluat poistaa yhtyeen \'{{ band.band_name }}\'?')">
                             <p>{{ band.band_name }}    
                                 <input class = "button_pink" type = "submit" value = "Poista yhtye">
-                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">                    </p>
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">                    
+                            </p>
                         </form>
                         {% endfor %}
                     </p>

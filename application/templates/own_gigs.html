@@ -56,7 +56,7 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <form action = "/delete-gig/{{ gig.id }}" method = "POST">
+                        <form action = "/delete-gig/{{ gig.id }}" method = "POST" onsubmit = "return confirm('Oletko varma että haluat poistaa keikan?')">
                             <input class = "button_green" type = "submit" value = "Poista keikka">
                             <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                         </form><br>
