@@ -37,4 +37,7 @@ def get_avg_count_members():
     except Exception as e:
         print(e)
 
+    if 'None' in str(member_avg):
+        member_avg = 0
+
     return '%.2f' % float(trim_result(member_avg))
