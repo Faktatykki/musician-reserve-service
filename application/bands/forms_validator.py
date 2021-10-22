@@ -14,7 +14,7 @@ def validate_create_band(band_name, band_description, instrument_roles):
         error_messages.append("Yhtyeen nimi ei voi olla tyhjä tai yli 80 merkkiä pitkä")
 
     if string_check.search(band_name) is not None:
-        error_messages.append("Yhtyeen nimessä ei saa esiintyä seuraavia erikoismerkkejä: %?")
+        error_messages.append("Yhtyeen nimessä ei saa esiintyä seuraavia erikoismerkkejä: @_#$%^&*()<>?/\|}{~")
 
     if len(band_description) > 2000:
         error_messages.append("Rauhoitu, yhtyeen kuvaus pitäisi olla alle 2000 merkkiä")
