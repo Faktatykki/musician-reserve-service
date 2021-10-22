@@ -32,20 +32,14 @@ Käyttäjänimi: Testi2
 Salasana: Testaaja2  
   
   
-Käyttäjä "Testi1" on luonut yhtyeen ja ilmoittanut yhtyeelle kolme keikkaa. Käyttäjällä "Testi2" pystyy testaamaan keikoille ilmoittautumista ja tähän 
-liittyviä toiminnallisuuksia. Parhaimman kuvan sovelluksesta saa aloittamalla "prosessin" alusta asti, eli luomalla uuden käyttäjän ja yhtyeen jne.. 
+Käyttäjä "Testi1" on luonut yhtyeen ja ilmoittanut yhtyeelle kolme keikkaa. Käyttäjällä "Testi2" (tai millä vain muulla käyttäjällä) 
+pystyy testaamaan keikoille ilmoittautumista ja tähän liittyviä toiminnallisuuksia. Parhaimman kuvan sovelluksesta saa aloittamalla "prosessin" alusta asti, 
+eli luomalla uuden käyttäjän ja yhtyeen jne.. 
 
-Olen nyt hetken venkslannut sovelluksen parissa, joten on hyvin mahdollista, että vauhtisokeus on iskenyt. Tästä huolimatta minusta tuntuu, että käyttöliittymä 
-on verrattain intuitiivinen, enkä aio liikaa ohjeistaa tässä käyttäjän toimintaa.
+Olen nyt hetken venkslannut sovelluksen parissa, joten on hyvin mahdollista, että vauhtisokeus on iskenyt. Tästä huolimatta vaikuttaa siltä, että käyttöliittymä 
+on verrattain intuitiivinen, enkä tästä syystä aio liikaa ohjeistaa käyttäjää.
 
   
+   
+   
 Rattoisia testaamisia!
-
-
-
-
-
-
-
-
-
