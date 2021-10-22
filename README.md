@@ -19,7 +19,7 @@ Sovellus on tarkoitettu muusikoille jotka etsivät yksittäisille keikoille soit
 
 ## Testaaminen 
 
-Sovellusta voi testata Herokussa osoitteessa:
+Sovellusta voi testata Herokussa seuraamalla seuraavaa linkkiä:
 
 [Musician-reserve-service](https://musician-reserve-service.herokuapp.com/)
 
