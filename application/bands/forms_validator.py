@@ -30,5 +30,3 @@ def validate_create_band(band_name, band_description, instrument_roles):
     
     return error_messages
     
-
-    
